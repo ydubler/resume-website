@@ -18,12 +18,8 @@ export default class Education extends React.Component {
       <>
         <br />
         <div style={{ textAlign: "center" }}>
-          Select an Article: <br />
+          University of Montana: Bachelors of Computer Science (Math Minor)
           <br />
-          <a href="/articles/insertion-sort">Insertion Sort</a>
-          <br />
-          <br />
-          <a href="/articles/insertion-sort">?</a>
         </div>
       </>
     );

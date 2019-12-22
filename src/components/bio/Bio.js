@@ -1,27 +1,28 @@
 import React from "react";
 
+import SVGFirstLastName from "./SVGName/SVGFirstLastName";
+
 export default class Bio extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      location: ""
+      location: "",
+      windowInnerWidth: 3000
     };
   }
 
   componentDidMount() {
-    this.setState({ location: this.props.location });
+    this.setState({
+      location: this.props.location,
+      windowInnerWidth: window.innerWidth
+    });
   }
 
   render() {
     return (
-      <div
-        style={{
-          width: "500px",
-          height: "500px"
-        }}
-      >
-        HOME 𝖄𝖚𝖗𝖎 𝕯𝖚𝖇𝖑𝖊𝖗
+      <div>
+        <SVGFirstLastName windowInnerWidth={this.state.windowInnerWidth} />
       </div>
     );
   }

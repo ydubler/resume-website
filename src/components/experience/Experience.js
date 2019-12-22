@@ -18,12 +18,10 @@ export default class Experience extends React.Component {
       <>
         <br />
         <div style={{ textAlign: "center" }}>
-          Select an Article: <br />
-          <br />
-          <a href="/articles/insertion-sort">Insertion Sort</a>
+          General Scholastic Experience
           <br />
           <br />
-          <a href="/articles/insertion-sort">?</a>
+          Senior Project (Web Development)
         </div>
       </>
     );

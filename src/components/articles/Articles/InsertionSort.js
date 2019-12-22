@@ -38,16 +38,27 @@ export default class InsertionSort extends React.Component {
               <div style={{ backgroundColor: "azure" /*color: "dimgray"*/ }}>
                 <div style={{ textAlign: "center" }}>Article Summary</div>
                 <br />
-                Insertion Sort is a naive sorting algorithm that compares the
-                current element to at least one previous element, swapping the
-                current element with a previous element as many times as is
-                neccesary to create an ordered list. Insertion Sort has a linear
-                best case runtime and a quadratic worst case runtime.
+                Insertion Sort is a stable, in-place, online sorting algorithm
+                that compares the current element to at least one previous
+                element, swapping the current element with a previous element as
+                many times as is neccesary to create an ordered list. Insertion
+                Sort has a linear best case runtime and a quadratic worst case
+                runtime.
               </div>
               <hr style={{ margin: "3px" }} />
             </div>
             <br />
+            <br />
             Center Aligned Text (Default)
+            <div
+              style={{
+                display: "inline-block",
+                width: "100%",
+                textAlign: "left"
+              }}
+            >
+              Insertion Sort
+            </div>
           </div>
         </div>
         <br />

@@ -18,12 +18,10 @@ export default class Contact extends React.Component {
       <>
         <br />
         <div style={{ textAlign: "center" }}>
-          Select an Article: <br />
-          <br />
-          <a href="/articles/insertion-sort">Insertion Sort</a>
+          ydubler@gmail.com
           <br />
           <br />
-          <a href="/articles/insertion-sort">?</a>
+          805-451-8565
         </div>
       </>
     );

@@ -18,12 +18,9 @@ export default class Resume extends React.Component {
       <>
         <br />
         <div style={{ textAlign: "center" }}>
-          Select an Article: <br />
-          <br />
-          <a href="/articles/insertion-sort">Insertion Sort</a>
-          <br />
-          <br />
-          <a href="/articles/insertion-sort">?</a>
+          <a href="/articles/insertion-sort" style={{ textDecoration: "none" }}>
+            Download Resume (PDF)
+          </a>
         </div>
       </>
     );

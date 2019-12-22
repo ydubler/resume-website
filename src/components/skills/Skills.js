@@ -17,14 +17,7 @@ export default class Skills extends React.Component {
     return (
       <>
         <br />
-        <div style={{ textAlign: "center" }}>
-          Select an Article: <br />
-          <br />
-          <a href="/articles/insertion-sort">Insertion Sort</a>
-          <br />
-          <br />
-          <a href="/articles/insertion-sort">?</a>
-        </div>
+        <div style={{ textAlign: "center" }}>I have skills!</div>
       </>
     );
   }
