@@ -7,10 +7,47 @@ export default class InsertionSort extends React.Component {
     this.state = {
       location: ""
     };
+
+    this.insertionSort = this.insertionSort.bind(this);
   }
 
   componentDidMount() {
     this.setState({ location: this.props.location });
+  }
+
+  insertionSort() {
+    let array = [5, 3, 1, 2, 4, 6, 2, 2, 5, 4, 7, 4, 6];
+
+    let n = array.length;
+    let ci = 1;
+    let pi = 0;
+
+    while (ci < n) {
+      pi = ci - 1;
+
+      let cur = array[ci];
+      let prev = array[pi];
+
+      let cni = ci;
+
+      while (cur < prev) {
+        // swap
+        array[cni] = prev;
+        array[pi] = cur;
+
+        pi--;
+        ci--;
+
+        if (pi < 0) {
+          break;
+        } else {
+          prev = array[pi];
+        }
+      }
+      ci++;
+    }
+
+    console.log(array);
   }
 
   render() {
@@ -49,7 +86,6 @@ export default class InsertionSort extends React.Component {
             </div>
             <br />
             <br />
-            Center Aligned Text (Default)
             <div
               style={{
                 display: "inline-block",
@@ -57,7 +93,13 @@ export default class InsertionSort extends React.Component {
                 textAlign: "left"
               }}
             >
-              Insertion Sort
+              Insertion Sort iterates over all elements in the array, comparing
+              the current element with at least one element previous. If the
+              current element is less than the element previous to it (assuming
+              ascending order is desired), swap them and compare to the next
+              previous element. If the current element is ever greater than or
+              equal to the previous element, increment the current element.
+              <button onClick={() => this.insertionSort()}>IS</button>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export default class SVGFirstLastName extends React.Component {
             strokeDashoffset: 0
           }
         },
-        animationDuration: "4s",
+        animationDuration: "3s",
         animationIterationCount: "once",
         animationTimingFunction: "ease-in-ease-out",
         animationDirection: "forward"
@@ -51,7 +51,7 @@ export default class SVGFirstLastName extends React.Component {
           }
         },
         animationDuration: "1s",
-        animationDelay: "3s",
+        animationDelay: "2s",
         animationIterationCount: "once",
         animationTimingFunction: "ease-in-ease-out"
       },
@@ -64,7 +64,7 @@ export default class SVGFirstLastName extends React.Component {
             strokeDashoffset: 0
           }
         },
-        animationDuration: "4s",
+        animationDuration: "3s",
         animationIterationCount: "once",
         animationTimingFunction: "ease-in-ease-out",
         animationDirection: "forward"
