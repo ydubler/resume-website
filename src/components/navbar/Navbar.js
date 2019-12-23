@@ -67,7 +67,11 @@ export default class Navbar extends React.Component {
           >
             Education
           </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+          <div style={{ display: "inline-block", color: "dimgray" }}>
+            Resume
+          </div>{" "}
+          &nbsp;
           <a
             style={{
               color:
@@ -77,8 +81,15 @@ export default class Navbar extends React.Component {
               textDecorationLine: "none"
             }}
             href="/resume"
+            type="post"
           >
-            Resume
+            <img
+              style={{
+                height: "14",
+                opacity: "0.65"
+              }}
+              src="/public/images/downloadIcon.png"
+            />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <a

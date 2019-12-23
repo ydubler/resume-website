@@ -24,7 +24,7 @@ import Education from "./components/education/Education";
 import Resume from "./components/resume/Resume";
 import ThreeDModels from "./components/threeDModels/ThreeDModels";
 import Contact from "./components/contact/Contact";
-import InsertionSort from "./components/articles/Articles/InsertionSort";
+import InsertionSort from "./components/articles/Articles/InsertionSort/InsertionSort";
 
 //document.body.style.fontFamily = "Helvetica Neue";
 //document.body.style.margin = 0;

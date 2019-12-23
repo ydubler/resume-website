@@ -23,6 +23,10 @@ export default class Bio extends React.Component {
     return (
       <div>
         <SVGFirstLastName windowInnerWidth={this.state.windowInnerWidth} />
+        <br />
+        <div style={{ textAlign: "center" }}>
+          This website is under construction!
+        </div>
       </div>
     );
   }

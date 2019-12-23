@@ -20,7 +20,8 @@ import Contact from "../components/contact/Contact";
 // NOTES: Aphrodite requires a slightly different approach to support server-side rendered CSS.
 // This approach is implemented below.
 import { StyleSheetServer } from "aphrodite";
-import InsertionSort from "../components/articles/Articles/InsertionSort";
+import InsertionSort from "../components/articles/Articles/InsertionSort/InsertionSort";
+import { Stream } from "stream";
 
 // Get the port
 const PORT = process.env.PORT || 3000;
@@ -147,27 +148,30 @@ server.get("/education", (req, res) => {
 // Getting "/resume"
 server.get("/resume", (req, res) => {
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
-  const { html, css } = StyleSheetServer.renderStatic(() => {
-    return ReactDOMServer.renderToString(
-      <>
-        <Navbar />
-        <Resume />
-      </>
-    );
-  });
+  // const { html, css } = StyleSheetServer.renderStatic(() => {
+  //   return ReactDOMServer.renderToString(
+  //     <>
+  //       <Navbar />
+  //       <Resume />
+  //     </>
+  //   );
+  // });
 
-  res.send(`
-  <html>
-  <head>
-      <title>SSR React App</title>
-      <style data-aphrodite>${css.content}</style>
-  </head>
-  <body style="margin:0px;font-family:Helvetica Neue" id="body">
-      <div id="mountNode">${html}</div>
-      <script src="dist/main.js"></script>
-  </body>
-  </html>
-  `);
+  var file = fs.createReadStream(__dirname + "/public/testResume.pdf");
+  var stat = fs.statSync(__dirname + "/public/testResume.pdf");
+  res.setHeader("Content-Length", stat.size);
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "attachment; filename=testResume.pdf");
+  file.pipe(res);
+
+  // var path = require("path");
+  // var file = path.join(__dirname, "/public/testResume.pdf");
+
+  // res.setHeader("Content-Type", "application/pdf");
+
+  // res.download(file);
+
+  //res.download(__dirname + "/public/testResume.pdf");
 });
 
 // Getting "/articles"
