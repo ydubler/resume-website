@@ -142,9 +142,12 @@ export default class InsertionSort extends React.Component {
         animationName: {
           ["0%"]: {
             transform: `translate(-${500 / this.state.numElements}px, 0px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 0px)`
           },
           ["100%"]: {
             transform: "translate(0px, 0px)"
+            //["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
         animationDuration: `${this.state.animationDelay / 1000}s`,
@@ -154,10 +157,19 @@ export default class InsertionSort extends React.Component {
       decrementJ: {
         animationName: {
           ["0%"]: {
-            transform: `translate(${2 * (500 / this.state.numElements)}px, 0px)`
+            transform: `translate(${2 *
+              (500 / this.state.numElements)}px, 0px) `
+            // ["-webkit-transform"]: `translate(${2 *
+            //   (500 / this.state.numElements)}px, 0px)`
+          },
+          ["50%"]: {
+            transform: `translate(${500 / this.state.numElements}px, 30px)`
+            // ["-webkit-transform"]: `translate(${2 *
+            //   (500 / this.state.numElements)}px, 0px)`
           },
           ["100%"]: {
             transform: "translate(0px, 0px)"
+            // ["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
         animationDuration: `${this.state.animationDelay / 1000}s`,
@@ -168,15 +180,21 @@ export default class InsertionSort extends React.Component {
         animationName: {
           ["0%"]: {
             transform: `translate(${500 / this.state.numElements}px, 0px)`
+            // ["-webkit-transform"]: `translate(${500 /
+            //   this.state.numElements}px, 0px)`
           },
           ["33%"]: {
             transform: `translate(${500 / this.state.numElements}px, -20px)`
+            // ["-webkit-transform"]: `translate(${500 /
+            //   this.state.numElements}px, -20px)`
           },
           ["66%"]: {
             transform: `translate(0px, -20px)`
+            // ["-webkit-transform"]: `translate(0px, -20px)`
           },
           ["100%"]: {
             transform: "translate(0px, 0px)"
+            // ["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
         animationDuration: `${this.state.animationDelay / 1000}s`,
@@ -187,15 +205,21 @@ export default class InsertionSort extends React.Component {
         animationName: {
           ["0%"]: {
             transform: `translate(-${500 / this.state.numElements}px, 0px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 0px)`
           },
           ["33%"]: {
             transform: `translate(-${500 / this.state.numElements}px, 20px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 20px)`
           },
           ["66%"]: {
             transform: `translate(0px, 20px)`
+            // ["-webkit-transform"]: `translate(0px, 20px)`
           },
           ["100%"]: {
             transform: "translate(0px, 0px)"
+            // ["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
         animationDuration: `${this.state.animationDelay / 1000}s`,
@@ -324,7 +348,7 @@ export default class InsertionSort extends React.Component {
                   actionable: true,
                   animateDecrementingJ: false
                 }),
-              this.state.animationDelay
+              this.state.animationDelay + 10
             );
 
             return {
@@ -368,7 +392,7 @@ export default class InsertionSort extends React.Component {
                 actionable: true,
                 swapping: false
               }),
-            this.state.animationDelay
+            this.state.animationDelay + 10
           );
 
           return {
@@ -392,7 +416,7 @@ export default class InsertionSort extends React.Component {
                   actionable: true,
                   incrementing: false
                 }),
-              this.state.animationDelay
+              this.state.animationDelay + 10
             );
 
             return {
@@ -582,7 +606,7 @@ export default class InsertionSort extends React.Component {
                   fill="gold"
                 ></circle>
                 {this.state.array.map((value, index) => (
-                  <text
+                  <g
                     key={Math.random()}
                     className={
                       (this.state.swapping &&
@@ -593,13 +617,16 @@ export default class InsertionSort extends React.Component {
                         css(this.animations.swapPrevToCurCircle)) ||
                       undefined
                     }
-                    x={160 + (500 / this.state.numElements) * index}
-                    y={this.state.arrayContentsY}
-                    dominantBaseline="middle"
-                    textAnchor="middle"
                   >
-                    {value}
-                  </text>
+                    <text
+                      x={160 + (500 / this.state.numElements) * index}
+                      y={this.state.arrayContentsY}
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                    >
+                      {value}
+                    </text>
+                  </g>
                 ))}
               </svg>
               <button onClick={() => this.step()}>Step</button>
