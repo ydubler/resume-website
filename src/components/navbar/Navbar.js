@@ -70,7 +70,7 @@ export default class Navbar extends React.Component {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
           <div style={{ display: "inline-block", color: "dimgray" }}>
             Resume
-          </div>{" "}
+          </div>
           &nbsp;
           <a
             style={{
@@ -83,13 +83,7 @@ export default class Navbar extends React.Component {
             href="/resume"
             type="post"
           >
-            <img
-              style={{
-                height: "14",
-                opacity: "0.65"
-              }}
-              src="/public/images/downloadIcon.png"
-            />
+            <u>.pdf</u>
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <a

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./compiled/server/server.js",
     "build": "babel src --out-dir compiled/ && webpack",
-    "dev-server": "ENVVAR=69 nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "dev-server": "ENVVAR=69 nodemon --exec babel-node src/server/server.js --delay 500ms --ignore dist/",
     "dev-bundle": "webpack -wd",
     "buildRun": "babel src --out-dir compiled/  && webpack && node ./compiled/server/server.js"
   },

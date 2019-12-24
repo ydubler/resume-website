@@ -6,8 +6,10 @@ export default class InsertionSort extends React.Component {
     super(props);
 
     this.state = {
+      // Location
       location: "",
-      codeLines: [
+      // Lines of Codes
+      codeLines_OG: [
         "void InsertionSort(int array[], int numElements)",
         "{",
         "int i, cur, j, prev;",
@@ -29,6 +31,50 @@ export default class InsertionSort extends React.Component {
         "}",
         "}"
       ],
+      // Indentation of Code
+      codeIndendation_OG: [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0
+      ],
+      codeLines: [
+        "PSEUDOCODE",
+        "// Initialization",
+        "index = 1",
+        "i = 1",
+        "j = 1",
+        "",
+        "// iterate through array",
+        "while(index < numElements)",
+        "",
+        "i = index",
+        "j = index - 1",
+        "cur = array[i]",
+        "prev = array[j]",
+        "",
+        "// compare current element with previous",
+        "while(j >= 0)",
+        "",
+        "// swap"
+      ],
+      // Indentation of Code
       codeIndendation: [
         0,
         0,
@@ -51,58 +97,108 @@ export default class InsertionSort extends React.Component {
         1,
         0
       ],
-      indiciesY: 70,
-      arrayContentsY: 110,
+      animationDelay: 300,
+      // The Y Coordinates of the Indicies (0 to N-1) and the Array Contents
+      arrayIndiciesY: 70,
+      arrayContentsY: 130,
+      // The actual array being sorted (dependent on componentDidMount())
       array: [],
-      numElements: 8,
+      // Number of elements in the array (dependent on componentDidMount())
+      numElements: 10,
+      // Keeps track of sorting index
+      sortVar_I: 1,
+      // Keeps track of index as it is decrementing (for comparisons)
       sortVar_i: 1,
+      // Keeps track of previous index (for comparisons)
       sortVar_j: 0,
-      sortVar_curVal: 0,
-      sortVar_prevVal: 0,
-      justSwapped: false
+      // The animation states
+      swapping: false,
+      incrementing: false,
+      decrementingJ: false,
+      animateDecrementingJ: false,
+      // can we take an action
+      actionable: true,
+      // SOLVE FUNCTIONS
+      solving: false,
+      finished: false
     };
 
-    this.styles = StyleSheet.create({
-      curTransformOrigin: {
-        transformOrigin: `${160 +
-          (500 / this.state.numElements) * this.state.sortVar_i -
-          500 / this.state.numElements / 2}px 110px`
-      },
-      prevTransformOrigin: {
-        transformOrigin: `${160 +
-          (500 / this.state.numElements) * this.state.sortVar_j -
-          500 / this.state.numElements / 2}px 110px`
-      }
-    });
+    // this.styles = StyleSheet.create({
+    //   curTransformOrigin: {
+    //     transformOrigin: `${160 +
+    //       (500 / this.state.numElements) * this.state.sortVar_i -
+    //       500 / this.state.numElements / 2}px 110px`
+    //   },
+    //   prevTransformOrigin: {
+    //     transformOrigin: `${160 +
+    //       (500 / this.state.numElements) * this.state.sortVar_j -
+    //       500 / this.state.numElements / 2}px 110px`
+    //   }
+    // });
 
     // Aphrodite Animation Stylesheet
     this.animations = StyleSheet.create({
-      swapCurToPrev: {
+      incrementIndex: {
         animationName: {
-          from: {
-            transform: "rotate(180deg)"
+          ["0%"]: {
+            transform: `translate(-${500 / this.state.numElements}px, 0px)`
           },
-          to: {
-            transform: "rotate(0deg)"
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
           }
         },
-        animationDuration: "1s",
+        animationDuration: `${this.state.animationDelay / 1000}s`,
         animationIterationCount: "once",
         animationTimingFunction: "linear"
       },
-      swapPrevToCur: {
+      decrementJ: {
+        animationName: {
+          ["0%"]: {
+            transform: `translate(${2 * (500 / this.state.numElements)}px, 0px)`
+          },
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
+          }
+        },
+        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "linear"
+      },
+      swapCurToPrevCircle: {
         animationName: {
           ["0%"]: {
             transform: `translate(${500 / this.state.numElements}px, 0px)`
           },
-          ["50%"]: {
-            transform: `translate(${500 / this.state.numElements / 2}px, 15px)`
+          ["33%"]: {
+            transform: `translate(${500 / this.state.numElements}px, -20px)`
+          },
+          ["66%"]: {
+            transform: `translate(0px, -20px)`
           },
           ["100%"]: {
-            transform: "translate(0px,0px)"
+            transform: "translate(0px, 0px)"
           }
         },
-        animationDuration: "1s",
+        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "linear"
+      },
+      swapPrevToCurCircle: {
+        animationName: {
+          ["0%"]: {
+            transform: `translate(-${500 / this.state.numElements}px, 0px)`
+          },
+          ["33%"]: {
+            transform: `translate(-${500 / this.state.numElements}px, 20px)`
+          },
+          ["66%"]: {
+            transform: `translate(0px, 20px)`
+          },
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
+          }
+        },
+        animationDuration: `${this.state.animationDelay / 1000}s`,
         animationIterationCount: "once",
         animationTimingFunction: "linear"
       }
@@ -110,6 +206,7 @@ export default class InsertionSort extends React.Component {
 
     this.createUnsortedArray = this.createUnsortedArray.bind(this);
     this.shuffle = this.shuffle.bind(this);
+    this.step = this.step.bind(this);
   }
 
   componentDidMount() {
@@ -126,10 +223,16 @@ export default class InsertionSort extends React.Component {
     this.setState({
       location: this.props.location,
       array: array,
+      sortVar_I: 1,
       sortVar_i: 1,
       sortVar_j: 0,
-      sortVar_curVal: array[1],
-      sortVar_prevVal: array[0]
+      swapping: false,
+      incrementing: false,
+      decrementingJ: false,
+      animateDecrementingJ: false,
+      actionable: true,
+      solving: false,
+      finished: false
     });
   }
 
@@ -152,12 +255,168 @@ export default class InsertionSort extends React.Component {
 
     this.setState({
       array: array,
+      sortVar_I: 1,
       sortVar_i: 1,
       sortVar_j: 0,
-      sortVar_curVal: array[1],
-      sortVar_prevVal: array[0]
+      swapping: false,
+      incrementing: false,
+      decrementingJ: false,
+      animateDecrementingJ: false,
+      actionable: true,
+      solving: false,
+      finished: false
     });
   }
+
+  // Create an unsorted array
+  createSortedArray() {
+    let array = [];
+    for (let i = 0; i < this.state.numElements; i++) {
+      array.push(i);
+    }
+
+    this.setState({
+      array: array,
+      sortVar_I: 1,
+      sortVar_i: 1,
+      sortVar_j: 0,
+      swapping: false,
+      incrementing: false,
+      decrementingJ: false,
+      animateDecrementingJ: false,
+      actionable: true,
+      solving: false,
+      finished: false
+    });
+  }
+
+  // Create an unsorted array
+  createReversedArray() {
+    let array = [];
+    for (let i = 0; i < this.state.numElements; i++) {
+      array.push(this.state.numElements - i);
+    }
+
+    this.setState({
+      array: array,
+      sortVar_I: 1,
+      sortVar_i: 1,
+      sortVar_j: 0,
+      swapping: false,
+      incrementing: false,
+      decrementingJ: false,
+      animateDecrementingJ: false,
+      actionable: true,
+      solving: false,
+      finished: false
+    });
+  }
+
+  step() {
+    if (this.state.actionable) {
+      this.setState(prevState => {
+        if (prevState.decrementingJ) {
+          if (prevState.sortVar_j > 0) {
+            // Set the timeout
+            setTimeout(
+              () =>
+                this.setState({
+                  actionable: true,
+                  animateDecrementingJ: false
+                }),
+              this.state.animationDelay
+            );
+
+            return {
+              actionable: false,
+              sortVar_j: prevState.sortVar_j - 2,
+              decrementingJ: false,
+              animateDecrementingJ: true
+            };
+          } else {
+          }
+        }
+        // we can swap
+        else if (
+          prevState.array[prevState.sortVar_i] <
+            prevState.array[prevState.sortVar_j] &&
+          prevState.sortVar_j >= 0
+        ) {
+          console.log(
+            "swapping " +
+              prevState.array[prevState.sortVar_i] +
+              " with " +
+              prevState.array[prevState.sortVar_j]
+          );
+          // copy array and reassign positions
+          let newArray = prevState.array;
+
+          let cur = prevState.array[prevState.sortVar_i];
+          let prev = prevState.array[prevState.sortVar_j];
+
+          console.log(newArray);
+          // Swap
+          newArray[prevState.sortVar_j] = cur;
+          newArray[prevState.sortVar_i] = prev;
+
+          console.log(newArray);
+
+          // Set the timeout
+          setTimeout(
+            () =>
+              this.setState({
+                actionable: true,
+                swapping: false
+              }),
+            this.state.animationDelay
+          );
+
+          return {
+            array: newArray,
+            sortVar_i: prevState.sortVar_j,
+            sortVar_j: prevState.sortVar_i,
+            actionable: false,
+            swapping: true,
+            decrementingJ: true
+          };
+        }
+        // increment
+        else {
+          // increment if the index is within bounds
+          if (prevState.sortVar_I < prevState.numElements) {
+            console.log("incrementing");
+            // Set the timeout
+            setTimeout(
+              () =>
+                this.setState({
+                  actionable: true,
+                  incrementing: false
+                }),
+              this.state.animationDelay
+            );
+
+            return {
+              sortVar_I: prevState.sortVar_I + 1,
+              sortVar_i: prevState.sortVar_I + 1,
+              sortVar_j: prevState.sortVar_I,
+              sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
+              sortVar_prevVal: prevState.array[prevState.sortVar_I],
+              actionable: false,
+              incrementing: true
+            };
+          } else {
+            console.log("sort finished!");
+            return {
+              finished: true,
+              solving: false
+            };
+          }
+        }
+      });
+    }
+  }
+
+  // on every click, perform logic and  update position
 
   render() {
     return (
@@ -221,7 +480,11 @@ export default class InsertionSort extends React.Component {
                       y={22 * index}
                       width="100%"
                       height="22"
-                      fill="aliceblue"
+                      fill={
+                        this.state.incrementing && (index === 4 || index === 5)
+                          ? "azure"
+                          : "aliceblue"
+                      }
                     ></rect>
                     <text
                       key={"code_line" + index}
@@ -251,7 +514,7 @@ export default class InsertionSort extends React.Component {
                 ></rect>
                 <text
                   x="80"
-                  y={this.state.indiciesY}
+                  y={this.state.arrayIndiciesY}
                   dominantBaseline="middle"
                   textAnchor="end"
                 >
@@ -259,11 +522,14 @@ export default class InsertionSort extends React.Component {
                 </text>
                 <circle
                   className={css(
-                    (this.state.justSwapped && this.animations.swapPrevToCur) ||
+                    (this.state.incrementing &&
+                      this.animations.incrementIndex) ||
                       undefined
                   )}
-                  cx={160 + (500 / this.state.numElements) * 1}
-                  cy={this.state.indiciesY}
+                  cx={
+                    160 + (500 / this.state.numElements) * this.state.sortVar_I
+                  }
+                  cy={this.state.arrayIndiciesY}
                   r="16"
                   stroke="gold"
                   strokeWidth="4"
@@ -273,10 +539,10 @@ export default class InsertionSort extends React.Component {
                   <text
                     key={Math.random()}
                     x={160 + (500 / this.state.numElements) * index}
-                    y={this.state.indiciesY}
+                    y={this.state.arrayIndiciesY}
                     dominantBaseline="middle"
                     textAnchor="middle"
-                    fill="gray"
+                    fill={this.state.sortVar_I === index ? "black" : "gray"}
                   >
                     {index}
                   </text>
@@ -290,11 +556,27 @@ export default class InsertionSort extends React.Component {
                   array[i]
                 </text>
                 <circle
-                  className={css(
-                    (this.state.justSwapped && this.animations.swapCurToPrev) ||
-                      undefined
-                  )}
-                  cx={160 + (500 / this.state.numElements) * 1}
+                  className={
+                    (this.state.swapping &&
+                      css(this.animations.swapPrevToCurCircle)) ||
+                    (this.state.animateDecrementingJ &&
+                      css(this.animations.decrementJ)) ||
+                    undefined
+                  }
+                  cx={`${160 +
+                    (500 / this.state.numElements) * this.state.sortVar_j}`}
+                  cy={this.state.arrayContentsY}
+                  r="16"
+                  fill="orange"
+                ></circle>
+                <circle
+                  className={
+                    (this.state.swapping &&
+                      css(this.animations.swapCurToPrevCircle)) ||
+                    undefined
+                  }
+                  cx={`${160 +
+                    (500 / this.state.numElements) * this.state.sortVar_i}`}
                   cy={this.state.arrayContentsY}
                   r="16"
                   fill="gold"
@@ -303,19 +585,13 @@ export default class InsertionSort extends React.Component {
                   <text
                     key={Math.random()}
                     className={
-                      this.state.justSwapped && this.state.sortVar_i === index
-                        ? css(
-                            this.animations.swapCurToPrev,
-                            this.styles.curTransformOrigin
-                          )
-                        : undefined ||
-                          (this.state.justSwapped &&
-                            this.state.sortVar_j === index)
-                        ? css(
-                            this.animations.swapPrevToCur,
-                            this.styles.prevTransformOrigin
-                          )
-                        : undefined
+                      (this.state.swapping &&
+                        this.state.sortVar_i === index &&
+                        css(this.animations.swapCurToPrevCircle)) ||
+                      (this.state.swapping &&
+                        this.state.sortVar_j === index &&
+                        css(this.animations.swapPrevToCurCircle)) ||
+                      undefined
                     }
                     x={160 + (500 / this.state.numElements) * index}
                     y={this.state.arrayContentsY}
@@ -325,30 +601,59 @@ export default class InsertionSort extends React.Component {
                     {value}
                   </text>
                 ))}
-                <circle
-                  cx={`${160 +
-                    (500 / this.state.numElements) * this.state.sortVar_i -
-                    500 / this.state.numElements / 2}`}
-                  cy={this.state.arrayContentsY}
-                  r="5"
-                  fill="red"
-                ></circle>
               </svg>
+              <button onClick={() => this.step()}>Step</button>
+              &nbsp;&nbsp;&nbsp;
               <button
                 onClick={() => {
-                  this.setState(prevState => {
-                    let newArray = prevState.array;
-
-                    let cur = newArray[1];
-                    let prev = newArray[0];
-                    newArray[0] = cur;
-                    newArray[1] = prev;
-
-                    return { justSwapped: true, array: newArray };
-                  });
+                  if (this.state.solving) {
+                    clearInterval(timer);
+                    this.setState({ solving: false });
+                  } else {
+                    if (this.state.finished) {
+                      this.setState({ solving: false });
+                    } else {
+                      this.step();
+                      this.setState({ solving: true });
+                      // Set the timeout
+                      var timer = setInterval(() => {
+                        console.log("timer firing");
+                        if (this.state.solving && !this.state.finished) {
+                          this.step();
+                        } else {
+                          clearInterval(timer);
+                        }
+                      }, this.state.animationDelay + 0.01);
+                    }
+                  }
                 }}
               >
-                Do It
+                {this.state.solving ? "Pause" : "Play"}
+              </button>
+              &nbsp;&nbsp;&nbsp;
+              <button
+                style={{ float: "right" }}
+                onClick={() => {
+                  this.createUnsortedArray();
+                }}
+              >
+                Reset (Random)
+              </button>
+              <button
+                style={{ float: "right" }}
+                onClick={() => {
+                  this.createSortedArray();
+                }}
+              >
+                Reset (Best Case)
+              </button>
+              <button
+                style={{ float: "right" }}
+                onClick={() => {
+                  this.createReversedArray();
+                }}
+              >
+                Reset (Worst Case)
               </button>
             </div>
           </div>
