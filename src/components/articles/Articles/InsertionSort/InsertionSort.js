@@ -160,6 +160,20 @@ export default class InsertionSort extends React.Component {
         animationIterationCount: "once",
         animationTimingFunction: "linear"
       },
+      incrementCircle: {
+        animationName: {
+          ["0%"]: {
+            transform: `translate(-${this.state.sortVar_I *
+              (500 / this.state.numElements)}px, 0px)`
+          },
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
+          }
+        },
+        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "linear"
+      },
       decrementJ: {
         animationName: {
           ["0%"]: {
@@ -211,7 +225,26 @@ export default class InsertionSort extends React.Component {
         },
         animationDuration: `${this.state.animationDelay / 1000}s`,
         animationIterationCount: "once",
-        animationTimingFunction: "linear"
+        animationTimingFunction: "ease-in"
+      },
+      wallAppear: {
+        animationName: {
+          ["0%"]: {
+            opacity: "0"
+          },
+          ["50%"]: {
+            opacity: "0.5"
+          },
+          ["90%"]: {
+            opacity: "1.0"
+          },
+          ["100%"]: {
+            opacity: "0.5"
+          }
+        },
+        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "ease-in"
       },
       swapCurToPrevCircle: {
         animationName: {
@@ -399,7 +432,7 @@ export default class InsertionSort extends React.Component {
                   decrementingJ: false,
                   animateDecrementingJ: false
                 }),
-              this.state.animationDelay + 10
+              this.state.animationDelay + 100
             );
 
             return {
@@ -419,7 +452,7 @@ export default class InsertionSort extends React.Component {
                   animateDecrementingJ: false,
                   hittingWall: false
                 }),
-              this.state.animationDelay + 10
+              this.state.animationDelay + 100
             );
 
             return { sortVar_j: -1, hittingWall: true, actionable: false };
@@ -431,12 +464,7 @@ export default class InsertionSort extends React.Component {
           prevState.array[prevState.sortVar_j]
           //&&  prevState.sortVar_j >= 0
         ) {
-          console.log(
-            "swapping " +
-              prevState.array[prevState.sortVar_i] +
-              " with " +
-              prevState.array[prevState.sortVar_j]
-          );
+          console.log("swapping");
           // copy array and reassign positions
           let newArray = prevState.array;
 
@@ -457,7 +485,7 @@ export default class InsertionSort extends React.Component {
                 actionable: true,
                 swapping: false
               }),
-            this.state.animationDelay + 10
+            this.state.animationDelay + 100
           );
 
           return {
@@ -475,7 +503,11 @@ export default class InsertionSort extends React.Component {
         else {
           // increment if the index is within bounds
           if (prevState.sortVar_I < prevState.numElements) {
-            console.log("incrementing");
+            console.log(
+              "incrementing w/" +
+                (this.state.sortVar_I + 1) * (500 / this.state.numElements)
+            );
+
             // Set the timeout
             setTimeout(
               () =>
@@ -483,13 +515,15 @@ export default class InsertionSort extends React.Component {
                   actionable: true,
                   incrementing: false
                 }),
-              this.state.animationDelay + 10
+              this.state.animationDelay + 100
             );
 
             return {
               sortVar_I: prevState.sortVar_I + 1,
               sortVar_i: prevState.sortVar_I + 1,
               sortVar_j: prevState.sortVar_I,
+              distanceToGo:
+                (prevState.sortVar_I + 1) * (500 / this.state.numElements),
               sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
               sortVar_prevVal: prevState.array[prevState.sortVar_I],
               numComparisons: prevState.numComparisons + 1,
@@ -819,6 +853,20 @@ export default class InsertionSort extends React.Component {
                     </text>
                   </g>
                 ))}
+                <line
+                  className={
+                    (this.state.hittingWall &&
+                      css(this.animations.wallAppear)) ||
+                    undefined
+                  }
+                  opacity={this.state.sortVar_j < 0 ? "1.0" : "0.0"}
+                  x1="130"
+                  y1="30"
+                  x2="130"
+                  y2="200"
+                  stroke="red"
+                  fill="red"
+                ></line>
               </svg>
               <button onClick={() => this.step()}>Step</button>
               &nbsp;&nbsp;&nbsp;
@@ -841,7 +889,7 @@ export default class InsertionSort extends React.Component {
                         } else {
                           clearInterval(timer);
                         }
-                      }, this.state.animationDelay + 0.01);
+                      }, this.state.animationDelay + 100);
                     }
                   }
                 }}
