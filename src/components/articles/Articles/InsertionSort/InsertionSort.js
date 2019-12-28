@@ -117,6 +117,7 @@ export default class InsertionSort extends React.Component {
       // Keeps track of previous index (for comparisons)
       sortVar_j: 0,
       // The animation states
+      comparedBeforeSwap: false,
       swapping: false,
       incrementing: false,
       decrementingJ: false,
@@ -464,185 +465,96 @@ export default class InsertionSort extends React.Component {
           prevState.array[prevState.sortVar_j]
           //&&  prevState.sortVar_j >= 0
         ) {
-          console.log("swapping");
-          // copy array and reassign positions
-          let newArray = prevState.array;
+          if (prevState.comparedBeforeSwap === false) {
+            // Set the timeout
+            return {
+              actionable: true,
+              displayComparison: true,
+              comparedBeforeSwap: true,
+              numComparisons: prevState.numComparisons + 1
+            };
+          } else {
+            console.log("swapping");
+            // copy array and reassign positions
+            let newArray = prevState.array;
 
-          let cur = prevState.array[prevState.sortVar_i];
-          let prev = prevState.array[prevState.sortVar_j];
+            let cur = prevState.array[prevState.sortVar_i];
+            let prev = prevState.array[prevState.sortVar_j];
 
-          console.log(newArray);
-          // Swap
-          newArray[prevState.sortVar_j] = cur;
-          newArray[prevState.sortVar_i] = prev;
+            console.log(newArray);
+            // Swap
+            newArray[prevState.sortVar_j] = cur;
+            newArray[prevState.sortVar_i] = prev;
 
-          console.log(newArray);
-
-          // Set the timeout
-          setTimeout(
-            () =>
-              this.setState({
-                actionable: true,
-                swapping: false
-              }),
-            this.state.animationDelay + 100
-          );
-
-          return {
-            array: newArray,
-            sortVar_i: prevState.sortVar_j,
-            sortVar_j: prevState.sortVar_i,
-            numComparisons: prevState.numComparisons + 1,
-            numSwaps: prevState.numSwaps + 1,
-            actionable: false,
-            swapping: true,
-            decrementingJ: true
-          };
-        }
-        // increment
-        else {
-          // increment if the index is within bounds
-          if (prevState.sortVar_I < prevState.numElements) {
-            console.log(
-              "incrementing w/" +
-                (this.state.sortVar_I + 1) * (500 / this.state.numElements)
-            );
+            console.log(newArray);
 
             // Set the timeout
             setTimeout(
               () =>
                 this.setState({
                   actionable: true,
-                  incrementing: false
+                  swapping: false
                 }),
               this.state.animationDelay + 100
             );
 
             return {
-              sortVar_I: prevState.sortVar_I + 1,
-              sortVar_i: prevState.sortVar_I + 1,
-              sortVar_j: prevState.sortVar_I,
-              distanceToGo:
-                (prevState.sortVar_I + 1) * (500 / this.state.numElements),
-              sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
-              sortVar_prevVal: prevState.array[prevState.sortVar_I],
-              numComparisons: prevState.numComparisons + 1,
+              array: newArray,
+              sortVar_i: prevState.sortVar_j,
+              sortVar_j: prevState.sortVar_i,
+              numSwaps: prevState.numSwaps + 1,
               actionable: false,
-              incrementing: true
-            };
-          } else {
-            console.log("sort finished!");
-            return {
-              finished: true,
-              solving: false
+              swapping: true,
+              decrementingJ: true,
+              comparedBeforeSwap: false,
+              displayComparison: false
             };
           }
-        }
-      });
-    }
-  }
-
-  //
-  step_OG() {
-    if (this.state.actionable) {
-      this.setState(prevState => {
-        // Decrementing J?
-        if (prevState.decrementingJ) {
-          // Is J > 0?
-          if (prevState.sortVar_j > 0) {
-            console.log("decrementing j, j>0");
-
-            // Set the timeout
-            setTimeout(
-              () =>
-                this.setState({
-                  actionable: true,
-                  animateDecrementingJ: false
-                }),
-              this.state.animationDelay + 10
-            );
-
-            return {
-              actionable: false,
-              sortVar_j: prevState.sortVar_j - 2,
-              decrementingJ: false,
-              animateDecrementingJ: true
-            };
-          } else {
-            console.log("decrementing j => j hitting the wall");
-          }
-        }
-        // J > 0 => SWAP
-        else if (
-          prevState.array[prevState.sortVar_i] <
-          prevState.array[prevState.sortVar_j]
-          //&&  prevState.sortVar_j >= 0
-        ) {
-          console.log(
-            "swapping " +
-              prevState.array[prevState.sortVar_i] +
-              " with " +
-              prevState.array[prevState.sortVar_j]
-          );
-          // copy array and reassign positions
-          let newArray = prevState.array;
-
-          let cur = prevState.array[prevState.sortVar_i];
-          let prev = prevState.array[prevState.sortVar_j];
-
-          console.log(newArray);
-          // Swap
-          newArray[prevState.sortVar_j] = cur;
-          newArray[prevState.sortVar_i] = prev;
-
-          console.log(newArray);
-
-          // Set the timeout
-          setTimeout(
-            () =>
-              this.setState({
-                actionable: true,
-                swapping: false
-              }),
-            this.state.animationDelay + 10
-          );
-
-          return {
-            array: newArray,
-            sortVar_i: prevState.sortVar_j,
-            sortVar_j: prevState.sortVar_i,
-            numComparisons: prevState.numComparisons + 1,
-            numSwaps: prevState.numSwaps + 1,
-            actionable: false,
-            swapping: true,
-            decrementingJ: true
-          };
         }
         // increment
         else {
           // increment if the index is within bounds
           if (prevState.sortVar_I < prevState.numElements) {
-            console.log("incrementing");
-            // Set the timeout
-            setTimeout(
-              () =>
-                this.setState({
-                  actionable: true,
-                  incrementing: false
-                }),
-              this.state.animationDelay + 10
-            );
+            if (
+              prevState.comparedBeforeSwap === false &&
+              prevState.sortVar_j >= 0
+            ) {
+              return {
+                actionable: true,
+                displayComparison: true,
+                comparedBeforeSwap: true,
+                numComparisons: prevState.numComparisons + 1
+              };
+            } else {
+              console.log(
+                "incrementing w/" +
+                  (this.state.sortVar_I + 1) * (500 / this.state.numElements)
+              );
 
-            return {
-              sortVar_I: prevState.sortVar_I + 1,
-              sortVar_i: prevState.sortVar_I + 1,
-              sortVar_j: prevState.sortVar_I,
-              sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
-              sortVar_prevVal: prevState.array[prevState.sortVar_I],
-              numComparisons: prevState.numComparisons + 1,
-              actionable: false,
-              incrementing: true
-            };
+              // Set the timeout
+              setTimeout(
+                () =>
+                  this.setState({
+                    actionable: true,
+                    incrementing: false
+                  }),
+                this.state.animationDelay + 100
+              );
+
+              return {
+                sortVar_I: prevState.sortVar_I + 1,
+                sortVar_i: prevState.sortVar_I + 1,
+                sortVar_j: prevState.sortVar_I,
+                distanceToGo:
+                  (prevState.sortVar_I + 1) * (500 / this.state.numElements),
+                sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
+                sortVar_prevVal: prevState.array[prevState.sortVar_I],
+                actionable: false,
+                incrementing: true,
+                displayComparison: false,
+                comparedBeforeSwap: false
+              };
+            }
           } else {
             console.log("sort finished!");
             return {
@@ -654,6 +566,119 @@ export default class InsertionSort extends React.Component {
       });
     }
   }
+
+  // //
+  // step_OG() {
+  //   if (this.state.actionable) {
+  //     this.setState(prevState => {
+  //       // Decrementing J?
+  //       if (prevState.decrementingJ) {
+  //         // Is J > 0?
+  //         if (prevState.sortVar_j > 0) {
+  //           console.log("decrementing j, j>0");
+
+  //           // Set the timeout
+  //           setTimeout(
+  //             () =>
+  //               this.setState({
+  //                 actionable: true,
+  //                 animateDecrementingJ: false
+  //               }),
+  //             this.state.animationDelay + 10
+  //           );
+
+  //           return {
+  //             actionable: false,
+  //             sortVar_j: prevState.sortVar_j - 2,
+  //             decrementingJ: false,
+  //             animateDecrementingJ: true
+  //           };
+  //         } else {
+  //           console.log("decrementing j => j hitting the wall");
+  //         }
+  //       }
+  //       // J > 0 => SWAP
+  //       else if (
+  //         prevState.array[prevState.sortVar_i] <
+  //         prevState.array[prevState.sortVar_j]
+  //         //&&  prevState.sortVar_j >= 0
+  //       ) {
+  //         console.log(
+  //           "swapping " +
+  //             prevState.array[prevState.sortVar_i] +
+  //             " with " +
+  //             prevState.array[prevState.sortVar_j]
+  //         );
+  //         // copy array and reassign positions
+  //         let newArray = prevState.array;
+
+  //         let cur = prevState.array[prevState.sortVar_i];
+  //         let prev = prevState.array[prevState.sortVar_j];
+
+  //         console.log(newArray);
+  //         // Swap
+  //         newArray[prevState.sortVar_j] = cur;
+  //         newArray[prevState.sortVar_i] = prev;
+
+  //         console.log(newArray);
+
+  //         // Set the timeout
+  //         setTimeout(
+  //           () =>
+  //             this.setState({
+  //               actionable: true,
+  //               swapping: false
+  //             }),
+  //           this.state.animationDelay + 10
+  //         );
+
+  //         return {
+  //           array: newArray,
+  //           sortVar_i: prevState.sortVar_j,
+  //           sortVar_j: prevState.sortVar_i,
+  //           numComparisons: prevState.numComparisons + 1,
+  //           numSwaps: prevState.numSwaps + 1,
+  //           actionable: false,
+  //           swapping: true,
+  //           decrementingJ: true
+  //         };
+  //       }
+  //       // increment
+  //       else {
+  //         // increment if the index is within bounds
+  //         if (prevState.sortVar_I < prevState.numElements) {
+  //           console.log("incrementing");
+  //           // Set the timeout
+  //           setTimeout(
+  //             () =>
+  //               this.setState({
+  //                 actionable: true,
+  //                 incrementing: false
+  //               }),
+  //             this.state.animationDelay + 10
+  //           );
+
+  //           return {
+  //             sortVar_I: prevState.sortVar_I + 1,
+  //             sortVar_i: prevState.sortVar_I + 1,
+  //             sortVar_j: prevState.sortVar_I,
+  //             sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
+  //             sortVar_prevVal: prevState.array[prevState.sortVar_I],
+  //             numComparisons: prevState.numComparisons + 1,
+  //             actionable: false,
+  //             incrementing: true
+  //           };
+  //         } else {
+  //           console.log("sort finished!");
+  //           return {
+  //             finished: true,
+  //             solving: false
+  //           };
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   // on every click, perform logic and  update position
   render() {
@@ -851,6 +876,22 @@ export default class InsertionSort extends React.Component {
                     >
                       {value}
                     </text>
+                    {this.state.displayComparison &&
+                      index === this.state.sortVar_i && (
+                        <text
+                          x={
+                            160 + (500 / this.state.numElements) * (index - 0.5)
+                          }
+                          y={this.state.arrayContentsY}
+                          dominantBaseline="middle"
+                          textAnchor="middle"
+                        >
+                          {this.state.array[this.state.sortVar_i] <
+                          this.state.array[this.state.sortVar_j]
+                            ? ">"
+                            : "<"}
+                        </text>
+                      )}
                   </g>
                 ))}
                 <line

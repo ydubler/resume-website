@@ -64,11 +64,11 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            1/5/2020
+            1/3/2020
           </div>
           <br />
           <br />
-          {/*Insertion Sort*/}
+          {/*Minimum Spanning Trees */}
           <div
             style={{
               display: "inline-block",
@@ -77,11 +77,8 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            <a
-              style={{ textDecoration: "none" }}
-              href="/articles/insertion-sort"
-            >
-              Minimum Spanning Trees
+            <a style={{ textDecoration: "none" }} href="">
+              Minimum Spanning Trees (Pending)
             </a>
           </div>
           <div
@@ -92,7 +89,57 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            1/5/2020
+            ?
+          </div>
+          <br />
+          <br />
+          {/* Suffix Trees */}
+          <div
+            style={{
+              display: "inline-block",
+              width: "300px",
+              textAlign: "left",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            <a style={{ textDecoration: "none" }} href="">
+              Suffix Trees (Pending)
+            </a>
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              width: "100px",
+              textAlign: "right",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            ?
+          </div>
+          <br />
+          <br />
+          {/* Convolution / FFT */}
+          <div
+            style={{
+              display: "inline-block",
+              width: "300px",
+              textAlign: "left",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            <a style={{ textDecoration: "none" }} href="">
+              Convolution / FFT (Pending)
+            </a>
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              width: "100px",
+              textAlign: "right",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            ?
           </div>
         </div>
       </>
