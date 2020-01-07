@@ -1108,14 +1108,7 @@ export default class InsertionSort extends React.Component {
                           index * (451 / (this.state.sort_numElements + 1))
                         }
                         y2="215"
-                        stroke={
-                          this.state.sort_j ===
-                          this.state.sort_1_insideSecondLoop_numArrows -
-                            index -
-                            2
-                            ? "mediumvioletred"
-                            : "plum"
-                        }
+                        stroke="plum"
                       ></line>
                       <line
                         key={Math.random()}
@@ -1133,14 +1126,7 @@ export default class InsertionSort extends React.Component {
                           index * (451 / (this.state.sort_numElements + 1))
                         }
                         y2="185"
-                        stroke={
-                          this.state.sort_j ===
-                          this.state.sort_1_insideSecondLoop_numArrows -
-                            index -
-                            2
-                            ? "mediumvioletred"
-                            : "plum"
-                        }
+                        stroke="plum"
                       ></line>
                       <line
                         key={Math.random()}
@@ -1158,14 +1144,7 @@ export default class InsertionSort extends React.Component {
                           index * (451 / (this.state.sort_numElements + 1))
                         }
                         y2="185"
-                        stroke={
-                          this.state.sort_j ===
-                          this.state.sort_1_insideSecondLoop_numArrows -
-                            index -
-                            2
-                            ? "mediumvioletred"
-                            : "plum"
-                        }
+                        stroke="plum"
                       ></line>
                     </>
                   ))}
