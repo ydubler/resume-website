@@ -64,7 +64,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            1/3/2020
+            1/7/2020
           </div>
           <br />
           <br />
