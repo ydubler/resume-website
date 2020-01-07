@@ -255,6 +255,7 @@ export default class InsertionSort extends React.Component {
     this.createUnsortedArray = this.createUnsortedArray.bind(this);
     this.shuffle = this.shuffle.bind(this);
     this.step = this.step.bind(this);
+    this.solveSort = this.solveSort.bind(this);
     this.createSortFinishedAnimations = this.createSortFinishedAnimations.bind(
       this
     );
@@ -492,6 +493,30 @@ export default class InsertionSort extends React.Component {
       sort_1_2_decrement: false,
       sort_1_2_decrement_display: false
     });
+  }
+
+  // Solve the sort
+  solveSort() {
+    if (this.state.sort_solving) {
+      clearInterval(timer);
+      this.setState({ sort_solving: false });
+    } else {
+      if (this.state.sort_finished) {
+        this.setState({ sort_solving: false });
+      } else {
+        this.step();
+        this.setState({ sort_solving: true });
+        // Set the timeout
+        var timer = setInterval(() => {
+          console.log("timer firing");
+          if (this.state.sort_solving && !this.state.sort_finished) {
+            this.step();
+          } else {
+            clearInterval(timer);
+          }
+        }, 510);
+      }
+    }
   }
 
   // Step through
@@ -1055,7 +1080,6 @@ export default class InsertionSort extends React.Component {
                     </text>
                   </React.Fragment>
                 ))}
-
                 {/* array[index] */}
                 <text
                   key={Math.random()}
@@ -1104,7 +1128,6 @@ export default class InsertionSort extends React.Component {
                     ></circle>
                   </React.Fragment>
                 )}
-
                 {/* Render array[indices] */}
                 {this.state.sort_array.map((value, index) => (
                   <React.Fragment key={Math.random()}>
@@ -1579,33 +1602,7 @@ export default class InsertionSort extends React.Component {
               </svg>
               <br />
               <button onClick={() => this.step()}> Step </button>
-              <button
-                onClick={() => {
-                  if (this.state.sort_solving) {
-                    clearInterval(timer);
-                    this.setState({ sort_solving: false });
-                  } else {
-                    if (this.state.sort_finished) {
-                      this.setState({ sort_solving: false });
-                    } else {
-                      this.step();
-                      this.setState({ sort_solving: true });
-                      // Set the timeout
-                      var timer = setInterval(() => {
-                        console.log("timer firing");
-                        if (
-                          this.state.sort_solving &&
-                          !this.state.sort_finished
-                        ) {
-                          this.step();
-                        } else {
-                          clearInterval(timer);
-                        }
-                      }, 510);
-                    }
-                  }
-                }}
-              >
+              <button onClick={() => this.solveSort()}>
                 {this.state.sort_solving ? " Pause " : " Solve "}
               </button>
               <button

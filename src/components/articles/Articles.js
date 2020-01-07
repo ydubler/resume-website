@@ -78,7 +78,7 @@ export default class Articles extends React.Component {
             }}
           >
             <a style={{ textDecoration: "none" }} href="">
-              Minimum Spanning Trees
+              Binary Search
             </a>
           </div>
           <div
