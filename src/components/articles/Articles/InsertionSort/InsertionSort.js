@@ -91,9 +91,11 @@ export default class InsertionSort extends React.Component {
         0,
         0
       ],
+      sort_numComparisons: 0,
+      sort_numSwaps: 0,
       sort_solving: false,
-      sort_array: [9, 8, 7, 6, 5, 4, 3],
-      sort_numElements: 10,
+      sort_array: [],
+      sort_numElements: 8,
       sort_circleRadius: 25,
       sort_index: 1,
       sort_i: 1,
@@ -368,6 +370,8 @@ export default class InsertionSort extends React.Component {
     this.shuffle(array);
 
     this.setState({
+      sort_numComparisons: 0,
+      sort_numSwaps: 0,
       sort_array: array,
       sort_circleRadius: 25,
       sort_index: 1,
@@ -410,6 +414,8 @@ export default class InsertionSort extends React.Component {
     }
 
     this.setState({
+      sort_numComparisons: 0,
+      sort_numSwaps: 0,
       sort_array: array,
       sort_circleRadius: 25,
       sort_index: 1,
@@ -452,6 +458,8 @@ export default class InsertionSort extends React.Component {
     }
 
     this.setState({
+      sort_numComparisons: 0,
+      sort_numSwaps: 0,
       sort_array: array,
       sort_circleRadius: 25,
       sort_index: 1,
@@ -516,6 +524,7 @@ export default class InsertionSort extends React.Component {
         if (prev.sort_index < prev.sort_numElements) {
           console.log("First Loop: index < numElements");
           return {
+            sort_numComparisons: prev.sort_numComparisons + 1,
             sort_1_increment_display: false,
             sort_initValues_display: false,
             sort_insideFirstLoop: true,
@@ -591,6 +600,7 @@ export default class InsertionSort extends React.Component {
             console.log("Entering 2nd Loop");
 
             return {
+              sort_numComparisons: prev.sort_numComparisons + 2,
               sort_1_updateValues_display: false,
               sort_1_insideSecondLoop: true,
               sort_1_insideSecondLoop_display: true,
@@ -601,6 +611,7 @@ export default class InsertionSort extends React.Component {
           else {
             console.log("Incrementing.");
             return {
+              sort_numComparisons: prev.sort_numComparisons + 2,
               sort_insideFirstLoop: false,
               sort_1_insideSecondLoop: false,
               sort_1_insideSecondLoop_display: false,
@@ -641,6 +652,7 @@ export default class InsertionSort extends React.Component {
             newArray[prev.sort_i] = prv;
 
             return {
+              sort_numSwaps: prev.sort_numSwaps + 1,
               sort_1_2_updateValues_display: false,
               sort_1_2_swap: true,
               sort_1_2_swap_display: true,
@@ -680,6 +692,7 @@ export default class InsertionSort extends React.Component {
               console.log("Entering 2nd Loop");
 
               return {
+                sort_numComparisons: prev.sort_numComparisons + 2,
                 sort_1_insideSecondLoop: true,
                 sort_1_insideSecondLoop_display: true,
                 sort_1_2_updateValues: false,
@@ -695,6 +708,7 @@ export default class InsertionSort extends React.Component {
             else {
               console.log("Incrementing.");
               return {
+                sort_numComparisons: prev.sort_numComparisons + 2,
                 sort_insideFirstLoop: false,
                 sort_1_insideSecondLoop: false,
                 sort_1_insideSecondLoop_display: false,
@@ -775,36 +789,20 @@ export default class InsertionSort extends React.Component {
               the current index.
               <br />
               <br />
-              Visual Demo of Insertion Sort
+              <div
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  textDecoration: "underline"
+                }}
+              >
+                Interactive Demo of Insertion Sort
+              </div>
               <br />
-              <svg width="100%" height={22 * this.state.codeLines.length}>
-                <rect width="100%" height="26" fill="aliceblue"></rect>
-                {this.state.codeLines.map((line, index) => (
-                  <g key={Math.random()}>
-                    <rect
-                      key={"code_line" + index + "_rect"}
-                      x="0"
-                      y={22 * index}
-                      width="100%"
-                      height="22"
-                      fill={
-                        this.state.codeLinesLit.includes(index)
-                          ? "azure"
-                          : "aliceblue"
-                      }
-                    ></rect>
-                    <text
-                      key={"code_line" + index}
-                      dominantBaseline="middle"
-                      x={15 + 50 * this.state.codeIndendation[index]}
-                      y={11 + 22 * index}
-                      fontFamily="Courier"
-                    >
-                      {line}
-                    </text>
-                  </g>
-                ))}
-              </svg>
+              Step through a naive implementation of Insertion Sort below with
+              code that highlights in parallel:
+              <br />
+              <br />
               <input
                 type="range"
                 min="4"
@@ -909,6 +907,8 @@ export default class InsertionSort extends React.Component {
 
                   // Set the state
                   this.setState({
+                    sort_numComparisons: 0,
+                    sort_numSwaps: 0,
                     sort_numElements: numElements,
                     sort_array: array,
                     sort_solving: false,
@@ -944,10 +944,17 @@ export default class InsertionSort extends React.Component {
                     sort_1_2_decrement_display: false
                   });
                 }}
-              ></input>{" "}
+              ></input>
               Array contains {this.state.sort_numElements} elements.
+              <div style={{ float: "right" }}>
+                Comparisons: {this.state.sort_numComparisons}
+              </div>
+              <div style={{ float: "right" }}>
+                Swaps: {this.state.sort_numSwaps}&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
               <svg width="680" height="255">
                 <rect
+                  key={Math.random()}
                   width="100%"
                   height="100%"
                   fill="white"
@@ -957,7 +964,7 @@ export default class InsertionSort extends React.Component {
                 {/* Render Blue Arrows (Iteration Loop) */}
                 {this.state.sort_insideFirstLoop_display &&
                   [...Array(this.state.sort_numElements).keys()].map(index => (
-                    <>
+                    <React.Fragment key={Math.random()}>
                       <line
                         key={Math.random()}
                         x1={
@@ -1015,9 +1022,10 @@ export default class InsertionSort extends React.Component {
                           this.state.sort_index === index + 1 ? "1.0" : "0.3"
                         }
                       ></line>
-                    </>
+                    </React.Fragment>
                   ))}
                 <text
+                  key={Math.random()}
                   x="180"
                   y="85"
                   fontSize="20"
@@ -1029,8 +1037,7 @@ export default class InsertionSort extends React.Component {
                 </text>
                 {/* Render Indices */}
                 {[...Array(this.state.sort_numElements).keys()].map(index => (
-                  <>
-                    {/*  */}
+                  <React.Fragment key={Math.random()}>
                     <text
                       key={Math.random()}
                       x={
@@ -1046,31 +1053,12 @@ export default class InsertionSort extends React.Component {
                     >
                       {index}
                     </text>
-                  </>
+                  </React.Fragment>
                 ))}
-                {/* Sort finished bar*/}
-                {this.state.sort_finished && (
-                  <>
-                    <rect
-                      key={Math.random()}
-                      x="197"
-                      y="130"
-                      width="451"
-                      height="5"
-                      fill="lightgreen"
-                    ></rect>
-                    <rect
-                      key={Math.random()}
-                      x="197"
-                      y="165"
-                      width="451"
-                      height="5"
-                      fill="lightgreen"
-                    ></rect>
-                  </>
-                )}
+
                 {/* array[index] */}
                 <text
+                  key={Math.random()}
                   x="180"
                   y="150"
                   fontSize="20"
@@ -1081,7 +1069,7 @@ export default class InsertionSort extends React.Component {
                   array[index]
                 </text>
                 {this.state.sort_initValues && !this.state.sort_finished && (
-                  <>
+                  <React.Fragment key={Math.random()}>
                     <circle
                       key={Math.random()}
                       className={
@@ -1114,12 +1102,12 @@ export default class InsertionSort extends React.Component {
                       r="15"
                       fill="mediumvioletred"
                     ></circle>
-                  </>
+                  </React.Fragment>
                 )}
 
                 {/* Render array[indices] */}
                 {this.state.sort_array.map((value, index) => (
-                  <>
+                  <React.Fragment key={Math.random()}>
                     {index === this.state.sort_i ? (
                       <g
                         key={Math.random()}
@@ -1208,7 +1196,7 @@ export default class InsertionSort extends React.Component {
                         {value}
                       </text>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
                 {/* Render palegreen Arrows (Swap Loop) */}
                 {this.state.sort_1_insideSecondLoop_display &&
@@ -1217,7 +1205,7 @@ export default class InsertionSort extends React.Component {
                       this.state.sort_1_insideSecondLoop_numArrows
                     ).keys()
                   ].map(index => (
-                    <>
+                    <React.Fragment key={Math.random()}>
                       <line
                         key={Math.random()}
                         x1={
@@ -1272,10 +1260,10 @@ export default class InsertionSort extends React.Component {
                         y2="185"
                         stroke="plum"
                       ></line>
-                    </>
+                    </React.Fragment>
                   ))}
                 {this.state.sort_initValues && !this.state.sort_finished && (
-                  <>
+                  <React.Fragment key={Math.random()}>
                     {/* blue index arrow */}
                     <line
                       key={Math.random()}
@@ -1550,9 +1538,29 @@ export default class InsertionSort extends React.Component {
                     >
                       curIndex
                     </text>
-                  </>
+                  </React.Fragment>
                 )}
-
+                {/* Sort finished bar*/}
+                {this.state.sort_finished && (
+                  <React.Fragment key={Math.random()}>
+                    <rect
+                      key={Math.random()}
+                      x="25%"
+                      y="185"
+                      width="50%"
+                      height="5"
+                      fill="lightgreen"
+                    ></rect>
+                    <rect
+                      key={Math.random()}
+                      x="25%"
+                      y="230"
+                      width="50%"
+                      height="5"
+                      fill="lightgreen"
+                    ></rect>
+                  </React.Fragment>
+                )}
                 {this.state.sort_finished && (
                   <text
                     key={Math.random()}
@@ -1615,6 +1623,39 @@ export default class InsertionSort extends React.Component {
               >
                 Reset (Worst Case)
               </button>
+              <svg width="100%" height={22 * this.state.codeLines.length}>
+                <rect
+                  key={Math.random()}
+                  width="100%"
+                  height="26"
+                  fill="aliceblue"
+                ></rect>
+                {this.state.codeLines.map((line, index) => (
+                  <g key={Math.random()}>
+                    <rect
+                      key={"code_line" + index + "_rect"}
+                      x="0"
+                      y={22 * index}
+                      width="100%"
+                      height="22"
+                      fill={
+                        this.state.codeLinesLit.includes(index)
+                          ? "azure"
+                          : "aliceblue"
+                      }
+                    ></rect>
+                    <text
+                      key={"code_line" + index}
+                      dominantBaseline="middle"
+                      x={15 + 50 * this.state.codeIndendation[index]}
+                      y={11 + 22 * index}
+                      fontFamily="Courier"
+                    >
+                      {line}
+                    </text>
+                  </g>
+                ))}
+              </svg>
             </div>
           </div>
         </div>

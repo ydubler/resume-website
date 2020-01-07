@@ -93,6 +93,31 @@ export default class Articles extends React.Component {
           </div>
           <br />
           <br />
+          {/* Binary Search */}
+          <div
+            style={{
+              display: "inline-block",
+              width: "500px",
+              textAlign: "left",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            <a style={{ textDecoration: "none" }} href="">
+              Minimum Spanning Trees
+            </a>
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              width: "150px",
+              textAlign: "right",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            Not Yet Published
+          </div>
+          <br />
+          <br />
           {/* Suffix Trees */}
           <div
             style={{
