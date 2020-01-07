@@ -23,7 +23,7 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "300px",
+              width: "500px",
               textAlign: "left"
             }}
           >
@@ -32,7 +32,7 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "100px",
+              width: "150px",
               textAlign: "right"
             }}
           >
@@ -44,7 +44,7 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "300px",
+              width: "500px",
               textAlign: "left",
               backgroundColor: "aliceblue"
             }}
@@ -59,7 +59,7 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "100px",
+              width: "150px",
               textAlign: "right",
               backgroundColor: "aliceblue"
             }}
@@ -72,24 +72,24 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "300px",
+              width: "500px",
               textAlign: "left",
               backgroundColor: "aliceblue"
             }}
           >
             <a style={{ textDecoration: "none" }} href="">
-              Minimum Spanning Trees (Pending)
+              Minimum Spanning Trees
             </a>
           </div>
           <div
             style={{
               display: "inline-block",
-              width: "100px",
+              width: "150px",
               textAlign: "right",
               backgroundColor: "aliceblue"
             }}
           >
-            ?
+            Not Yet Published
           </div>
           <br />
           <br />
@@ -97,24 +97,24 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "300px",
+              width: "500px",
               textAlign: "left",
               backgroundColor: "aliceblue"
             }}
           >
             <a style={{ textDecoration: "none" }} href="">
-              Suffix Trees (Pending)
+              Suffix Trees
             </a>
           </div>
           <div
             style={{
               display: "inline-block",
-              width: "100px",
+              width: "150px",
               textAlign: "right",
               backgroundColor: "aliceblue"
             }}
           >
-            ?
+            Not Yet Published
           </div>
           <br />
           <br />
@@ -122,24 +122,49 @@ export default class Articles extends React.Component {
           <div
             style={{
               display: "inline-block",
-              width: "300px",
+              width: "500px",
               textAlign: "left",
               backgroundColor: "aliceblue"
             }}
           >
             <a style={{ textDecoration: "none" }} href="">
-              Convolution / FFT (Pending)
+              Convolution / FFT
             </a>
           </div>
           <div
             style={{
               display: "inline-block",
-              width: "100px",
+              width: "150px",
               textAlign: "right",
               backgroundColor: "aliceblue"
             }}
           >
-            ?
+            Not Yet Published
+          </div>
+          <br />
+          <br />
+          {/* Kernels / Image Processing */}
+          <div
+            style={{
+              display: "inline-block",
+              width: "500px",
+              textAlign: "left",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            <a style={{ textDecoration: "none" }} href="">
+              Kernels / Image Processing
+            </a>
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              width: "150px",
+              textAlign: "right",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            Not Yet Published
           </div>
         </div>
       </>

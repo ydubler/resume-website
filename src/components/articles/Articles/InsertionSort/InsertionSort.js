@@ -8,147 +8,131 @@ export default class InsertionSort extends React.Component {
     this.state = {
       // Location
       location: "",
+      // Buffer
+      buffer: 15,
       // Lines of Codes
-      codeLines_OG: [
-        "void InsertionSort(int array[], int numElements)",
-        "{",
-        "int i, cur, j, prev;",
-        "",
-        "for(i = 1; i < numElements; i++)",
-        "{",
-        "cur = array[i];",
-        "j = i - 1;",
-        "prev = array[j];",
-        "",
-        "while(j >= 0 && prev > cur)",
-        "{",
-        "array[j+1] = prev;",
-        "j = j - 1;",
-        "prev = array[j];",
-        "}",
-        "",
-        "array[j+1]=cur;",
-        "}",
-        "}"
-      ],
-      // Indentation of Code
-      codeIndendation_OG: [
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        3,
-        3,
-        2,
-        2,
-        2,
-        1,
-        0
-      ],
+      codeLinesLit: [],
       codeLines: [
-        "PSEUDOCODE",
+        "",
         "// Initialization",
         "index = 1",
-        "i = 1",
-        "j = 1",
+        "curIndex = 1",
+        "prevIndex = 0",
         "",
-        "// iterate through array",
+        "// Enter into Iteration Loop (blue arrows)",
         "while(index < numElements)",
         "",
-        "i = index",
-        "j = index - 1",
-        "cur = array[i]",
-        "prev = array[j]",
+        "// Orient the current and previous indices",
+        "curIndex = index",
+        "prevIndex = index - 1",
         "",
-        "// compare current element with previous",
-        "while(j >= 0)",
+        "// Get the current and previous values",
+        "current = array[curIndex]",
+        "previous = array[prevIndex]",
         "",
-        "// swap"
+        "// Enter into Swap Loop (palegreen/mediumvioletred arrows)",
+        "while(current < previous && prevIndex >= 0)",
+        "",
+        "// Get the current and previous elements ",
+        "current = array[curIndex]",
+        "previous = array[prevIndex]",
+        "",
+        "// Swap current and previous elements",
+        "array[curIndex] = previous",
+        "array[prevIndex] = current",
+        "",
+        "// Decrement indices",
+        "curIndex--",
+        "prevIndex--",
+        "",
+        "// Increment index",
+        "index++",
+        "",
+        "// Array is sorted!",
+        ""
       ],
       // Indentation of Code
       codeIndendation: [
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         1,
         1,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         2,
         2,
         2,
         2,
         2,
         2,
-        3,
-        3,
-        3,
+        2,
+        2,
+        2,
+        2,
         2,
         2,
         2,
         1,
+        1,
+        0,
+        0,
         0
       ],
-      // Number of elements in the array (dependent on componentDidMount())
-      numElements: 10,
-      // The actual array being sorted (dependent on componentDidMount())
-      array: [],
-      // Animation Delay (Smaller = Faster)
-      animationDelay: 300,
-      // The Y Coordinates of the Indicies (0 to N-1) and the Array Contents
-      arrayIndiciesY: 70,
-      arrayContentsY: 130,
-      // Number of comparisons
-      numComparisons: 0,
-      // Number of swaps
-      numSwaps: 0,
-      // Keeps track of sorting index
-      sortVar_I: 1,
-      // Keeps track of index as it is decrementing (for comparisons)
-      sortVar_i: 1,
-      // Keeps track of previous index (for comparisons)
-      sortVar_j: 0,
-      // The animation states
-      comparedBeforeSwap: false,
-      swapping: false,
-      incrementing: false,
-      decrementingJ: false,
-      animateDecrementingJ: false,
-      hittingWall: false,
-      // can we take an action
-      actionable: true,
-      // SOLVE FUNCTIONS
-      solving: false,
-      finished: false
+      sort_solving: false,
+      sort_array: [9, 8, 7, 6, 5, 4, 3],
+      sort_numElements: 10,
+      sort_circleRadius: 25,
+      sort_index: 1,
+      sort_i: 1,
+      sort_i_circle: 1,
+      sort_j_circle: 0,
+      sort_j: 0,
+      sort_curVal: 0,
+      sort_started: false,
+      sort_started_display: false,
+      sort_finished: false,
+      sort_finished_display: false,
+      sort_initValues: false,
+      sort_initValues_display: false,
+      sort_insideFirstLoop: false,
+      sort_insideFirstLoop_display: false,
+      sort_1_orientIndices: false,
+      sort_1_orientIndices_display: false,
+      sort_1_updateValues: false,
+      sort_1_updateValues_display: false,
+      sort_1_insideSecondLoop: false,
+      sort_1_insideSecondLoop_display: false,
+      sort_1_insideSecondLoop_numArrows: 2,
+      sort_1_increment: false,
+      sort_1_increment_display: false,
+      sort_1_2_updateValues: false,
+      sort_1_2_updateValues_display: false,
+      sort_1_2_swap: false,
+      sort_1_2_swap_display: false,
+      sort_1_2_decrement: false,
+      sort_1_2_decrement_display: false
     };
-
-    // this.styles = StyleSheet.create({
-    //   curTransformOrigin: {
-    //     transformOrigin: `${160 +
-    //       (500 / this.state.numElements) * this.state.sortVar_i -
-    //       500 / this.state.numElements / 2}px 110px`
-    //   },
-    //   prevTransformOrigin: {
-    //     transformOrigin: `${160 +
-    //       (500 / this.state.numElements) * this.state.sortVar_j -
-    //       500 / this.state.numElements / 2}px 110px`
-    //   }
-    // });
 
     // Aphrodite Animation Stylesheet
     this.animations = StyleSheet.create({
       incrementIndex: {
         animationName: {
           ["0%"]: {
-            transform: `translate(-${500 / this.state.numElements}px, 0px)`
+            transform: `translate(-${451 /
+              (this.state.sort_numElements + 1)}px, 0px)`
             // ["-webkit-transform"]: `translate(-${500 /
             //   this.state.numElements}px, 0px)`
           },
@@ -157,143 +141,70 @@ export default class InsertionSort extends React.Component {
             //["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationDuration: `0.5s`,
         animationIterationCount: "once",
         animationTimingFunction: "linear"
       },
-      incrementCircle: {
+      decrementIndices: {
         animationName: {
           ["0%"]: {
-            transform: `translate(-${this.state.sortVar_I *
-              (500 / this.state.numElements)}px, 0px)`
-          },
-          ["100%"]: {
-            transform: "translate(0px, 0px)"
-          }
-        },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
-        animationIterationCount: "once",
-        animationTimingFunction: "linear"
-      },
-      decrementJ: {
-        animationName: {
-          ["0%"]: {
-            transform: `translate(${2 *
-              (500 / this.state.numElements)}px, 0px) `
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["50%"]: {
-            transform: `translate(${500 / this.state.numElements}px, 30px)`
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["100%"]: {
-            transform: "translate(0px, 0px)"
-            // ["-webkit-transform"]: "translate(0px, 0px)"
-          }
-        },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
-        animationIterationCount: "once",
-        animationTimingFunction: "linear"
-      },
-      hittingWall: {
-        animationName: {
-          ["0%"]: {
-            transform: `translate(${500 / this.state.numElements}px, -30px) `
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["10%"]: {
-            transform: `translate(${500 / this.state.numElements}px, 0px)`
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["50%"]: {
-            transform: `translate(${500 / this.state.numElements / 2}px, 0px)`
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["95%"]: {
-            transform: `translate(-20px, 0px)`
-            // ["-webkit-transform"]: `translate(${2 *
-            //   (500 / this.state.numElements)}px, 0px)`
-          },
-          ["100%"]: {
-            transform: "translate(0px, 0px)"
-            // ["-webkit-transform"]: "translate(0px, 0px)"
-          }
-        },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
-        animationIterationCount: "once",
-        animationTimingFunction: "ease-in"
-      },
-      wallAppear: {
-        animationName: {
-          ["0%"]: {
-            opacity: "0"
-          },
-          ["50%"]: {
-            opacity: "0.5"
-          },
-          ["90%"]: {
-            opacity: "1.0"
-          },
-          ["100%"]: {
-            opacity: "0.5"
-          }
-        },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
-        animationIterationCount: "once",
-        animationTimingFunction: "ease-in"
-      },
-      swapCurToPrevCircle: {
-        animationName: {
-          ["0%"]: {
-            transform: `translate(${500 / this.state.numElements}px, 0px)`
-            // ["-webkit-transform"]: `translate(${500 /
-            //   this.state.numElements}px, 0px)`
-          },
-          ["33%"]: {
-            transform: `translate(${500 / this.state.numElements}px, -20px)`
-            // ["-webkit-transform"]: `translate(${500 /
-            //   this.state.numElements}px, -20px)`
-          },
-          ["66%"]: {
-            transform: `translate(0px, -20px)`
-            // ["-webkit-transform"]: `translate(0px, -20px)`
-          },
-          ["100%"]: {
-            transform: "translate(0px, 0px)"
-            // ["-webkit-transform"]: "translate(0px, 0px)"
-          }
-        },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
-        animationIterationCount: "once",
-        animationTimingFunction: "linear"
-      },
-      swapPrevToCurCircle: {
-        animationName: {
-          ["0%"]: {
-            transform: `translate(-${500 / this.state.numElements}px, 0px)`
+            transform: `translate(${451 /
+              (this.state.sort_numElements + 1)}px, 0px)`
             // ["-webkit-transform"]: `translate(-${500 /
             //   this.state.numElements}px, 0px)`
           },
-          ["33%"]: {
-            transform: `translate(-${500 / this.state.numElements}px, 20px)`
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
+            //["-webkit-transform"]: "translate(0px, 0px)"
+          }
+        },
+        animationDuration: `0.5s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "linear"
+      },
+      swapCurrent: {
+        animationName: {
+          ["0%"]: {
+            transform: `translate(${451 /
+              (this.state.sort_numElements + 1)}px, 0px)`
             // ["-webkit-transform"]: `translate(-${500 /
-            //   this.state.numElements}px, 20px)`
+            //   this.state.numElements}px, 0px)`
           },
-          ["66%"]: {
-            transform: `translate(0px, 20px)`
-            // ["-webkit-transform"]: `translate(0px, 20px)`
+          ["50%"]: {
+            transform: `translate(${451 /
+              (2 * (this.state.sort_numElements + 1))}px, 15px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 0px)`
           },
           ["100%"]: {
             transform: "translate(0px, 0px)"
-            // ["-webkit-transform"]: "translate(0px, 0px)"
+            //["-webkit-transform"]: "translate(0px, 0px)"
           }
         },
-        animationDuration: `${this.state.animationDelay / 1000}s`,
+        animationDuration: `0.5s`,
+        animationIterationCount: "once",
+        animationTimingFunction: "linear"
+      },
+      swapPrevious: {
+        animationName: {
+          ["0%"]: {
+            transform: `translate(-${451 /
+              (this.state.sort_numElements + 1)}px, 0px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 0px)`
+          },
+          ["50%"]: {
+            transform: `translate(-${451 /
+              (2 * (this.state.sort_numElements + 1))}px, -15px)`
+            // ["-webkit-transform"]: `translate(-${500 /
+            //   this.state.numElements}px, 0px)`
+          },
+          ["100%"]: {
+            transform: "translate(0px, 0px)"
+            //["-webkit-transform"]: "translate(0px, 0px)"
+          }
+        },
+        animationDuration: `0.5s`,
         animationIterationCount: "once",
         animationTimingFunction: "linear"
       }
@@ -302,12 +213,15 @@ export default class InsertionSort extends React.Component {
     this.createUnsortedArray = this.createUnsortedArray.bind(this);
     this.shuffle = this.shuffle.bind(this);
     this.step = this.step.bind(this);
+    this.resetSortRandom = this.resetSortRandom.bind(this);
+    this.resetSortBest = this.resetSortBest.bind(this);
+    this.resetSortWorst = this.resetSortWorst.bind(this);
   }
 
   componentDidMount() {
     // Define the array
     let array = [];
-    for (let i = 0; i < this.state.numElements; i++) {
+    for (let i = 0; i < this.state.sort_numElements; i++) {
       array.push(i);
     }
 
@@ -317,19 +231,7 @@ export default class InsertionSort extends React.Component {
     // Set the state
     this.setState({
       location: this.props.location,
-      array: array,
-      numComparisons: 0,
-      numSwaps: 0,
-      sortVar_I: 1,
-      sortVar_i: 1,
-      sortVar_j: 0,
-      swapping: false,
-      incrementing: false,
-      decrementingJ: false,
-      animateDecrementingJ: false,
-      actionable: true,
-      solving: false,
-      finished: false
+      sort_array: array
     });
   }
 
@@ -344,343 +246,405 @@ export default class InsertionSort extends React.Component {
   // Create an unsorted array
   createUnsortedArray() {
     let array = [];
-    for (let i = 0; i < this.state.numElements; i++) {
+    for (let i = 0; i < this.state.sort_numElements; i++) {
       array.push(i);
     }
 
     this.shuffle(array);
 
     this.setState({
-      array: array,
-      numComparisons: 0,
-      numSwaps: 0,
-      sortVar_I: 1,
-      sortVar_i: 1,
-      sortVar_j: 0,
-      swapping: false,
-      incrementing: false,
-      decrementingJ: false,
-      animateDecrementingJ: false,
-      actionable: true,
-      solving: false,
-      finished: false
+      sort_array: array
     });
   }
 
-  // Create an unsorted array
+  // Create a sorted array
   createSortedArray() {
     let array = [];
-    for (let i = 0; i < this.state.numElements; i++) {
+    for (let i = 0; i < this.state.sort_numElements; i++) {
       array.push(i);
     }
 
     this.setState({
-      array: array,
-      numComparisons: 0,
-      numSwaps: 0,
-      sortVar_I: 1,
-      sortVar_i: 1,
-      sortVar_j: 0,
-      swapping: false,
-      incrementing: false,
-      decrementingJ: false,
-      animateDecrementingJ: false,
-      actionable: true,
-      solving: false,
-      finished: false
+      sort_array: array,
+      numComparisons: 0
     });
   }
 
   // Create an unsorted array
   createReversedArray() {
     let array = [];
-    for (let i = 0; i < this.state.numElements; i++) {
-      array.push(this.state.numElements - i);
+    for (let i = 0; i < this.state.sort_numElements; i++) {
+      array.push(this.state.sort_numElements - i);
     }
 
     this.setState({
-      array: array,
-      numComparisons: 0,
-      numSwaps: 0,
-      sortVar_I: 1,
-      sortVar_i: 1,
-      sortVar_j: 0,
-      swapping: false,
-      incrementing: false,
-      decrementingJ: false,
-      animateDecrementingJ: false,
-      actionable: true,
-      solving: false,
-      finished: false
+      sort_array: array
     });
   }
 
-  //
-  step() {
-    if (this.state.actionable) {
-      this.setState(prevState => {
-        // Decrementing J?
-        if (prevState.decrementingJ) {
-          // Is J > 0?
-          if (prevState.sortVar_j > 1) {
-            console.log("decrementing j, j>0");
-
-            // Set the timeout
-            setTimeout(
-              () =>
-                this.setState({
-                  actionable: true,
-                  decrementingJ: false,
-                  animateDecrementingJ: false
-                }),
-              this.state.animationDelay + 100
-            );
-
-            return {
-              actionable: false,
-              sortVar_j: prevState.sortVar_j - 2,
-              animateDecrementingJ: true
-            };
-          } else {
-            console.log("decrementing j => j hitting the wall");
-
-            // Set the timeout
-            setTimeout(
-              () =>
-                this.setState({
-                  actionable: true,
-                  decrementingJ: false,
-                  animateDecrementingJ: false,
-                  hittingWall: false
-                }),
-              this.state.animationDelay + 100
-            );
-
-            return { sortVar_j: -1, hittingWall: true, actionable: false };
-          }
-        }
-        // J > 0 => SWAP
-        else if (
-          prevState.array[prevState.sortVar_i] <
-          prevState.array[prevState.sortVar_j]
-          //&&  prevState.sortVar_j >= 0
-        ) {
-          if (prevState.comparedBeforeSwap === false) {
-            // Set the timeout
-            return {
-              actionable: true,
-              displayComparison: true,
-              comparedBeforeSwap: true,
-              numComparisons: prevState.numComparisons + 1
-            };
-          } else {
-            console.log("swapping");
-            // copy array and reassign positions
-            let newArray = prevState.array;
-
-            let cur = prevState.array[prevState.sortVar_i];
-            let prev = prevState.array[prevState.sortVar_j];
-
-            console.log(newArray);
-            // Swap
-            newArray[prevState.sortVar_j] = cur;
-            newArray[prevState.sortVar_i] = prev;
-
-            console.log(newArray);
-
-            // Set the timeout
-            setTimeout(
-              () =>
-                this.setState({
-                  actionable: true,
-                  swapping: false
-                }),
-              this.state.animationDelay + 100
-            );
-
-            return {
-              array: newArray,
-              sortVar_i: prevState.sortVar_j,
-              sortVar_j: prevState.sortVar_i,
-              numSwaps: prevState.numSwaps + 1,
-              actionable: false,
-              swapping: true,
-              decrementingJ: true,
-              comparedBeforeSwap: false,
-              displayComparison: false
-            };
-          }
-        }
-        // increment
-        else {
-          // increment if the index is within bounds
-          if (prevState.sortVar_I < prevState.numElements) {
-            if (
-              prevState.comparedBeforeSwap === false &&
-              prevState.sortVar_j >= 0
-            ) {
-              return {
-                actionable: true,
-                displayComparison: true,
-                comparedBeforeSwap: true,
-                numComparisons: prevState.numComparisons + 1
-              };
-            } else {
-              console.log(
-                "incrementing w/" +
-                  (this.state.sortVar_I + 1) * (500 / this.state.numElements)
-              );
-
-              // Set the timeout
-              setTimeout(
-                () =>
-                  this.setState({
-                    actionable: true,
-                    incrementing: false
-                  }),
-                this.state.animationDelay + 100
-              );
-
-              return {
-                sortVar_I: prevState.sortVar_I + 1,
-                sortVar_i: prevState.sortVar_I + 1,
-                sortVar_j: prevState.sortVar_I,
-                distanceToGo:
-                  (prevState.sortVar_I + 1) * (500 / this.state.numElements),
-                sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
-                sortVar_prevVal: prevState.array[prevState.sortVar_I],
-                actionable: false,
-                incrementing: true,
-                displayComparison: false,
-                comparedBeforeSwap: false
-              };
-            }
-          } else {
-            console.log("sort finished!");
-            return {
-              finished: true,
-              solving: false
-            };
-          }
-        }
-      });
+  resetSortRandom() {
+    // Define the array
+    let array = [];
+    for (let i = 0; i < this.state.sort_numElements; i++) {
+      array.push(i);
     }
+
+    // Shuffle the array
+    this.shuffle(array);
+
+    this.setState({
+      sort_array: array,
+      sort_circleRadius: 25,
+      sort_index: 1,
+      sort_i: 1,
+      sort_i_circle: 1,
+      sort_j_circle: 0,
+      sort_j: 0,
+      sort_curVal: 0,
+      sort_started: false,
+      sort_started_display: false,
+      sort_finished: false,
+      sort_finished_display: false,
+      sort_initValues: false,
+      sort_initValues_display: false,
+      sort_insideFirstLoop: false,
+      sort_insideFirstLoop_display: false,
+      sort_1_orientIndices: false,
+      sort_1_orientIndices_display: false,
+      sort_1_updateValues: false,
+      sort_1_updateValues_display: false,
+      sort_1_insideSecondLoop: false,
+      sort_1_insideSecondLoop_display: false,
+      sort_1_insideSecondLoop_numArrows: 2,
+      sort_1_increment: false,
+      sort_1_increment_display: false,
+      sort_1_2_updateValues: false,
+      sort_1_2_updateValues_display: false,
+      sort_1_2_swap: false,
+      sort_1_2_swap_display: false,
+      sort_1_2_decrement: false,
+      sort_1_2_decrement_display: false
+    });
   }
 
-  // //
-  // step_OG() {
-  //   if (this.state.actionable) {
-  //     this.setState(prevState => {
-  //       // Decrementing J?
-  //       if (prevState.decrementingJ) {
-  //         // Is J > 0?
-  //         if (prevState.sortVar_j > 0) {
-  //           console.log("decrementing j, j>0");
+  resetSortWorst() {
+    // Define the array
+    let array = [];
+    for (let i = this.state.sort_numElements - 1; i >= 0; i--) {
+      array.push(i);
+    }
 
-  //           // Set the timeout
-  //           setTimeout(
-  //             () =>
-  //               this.setState({
-  //                 actionable: true,
-  //                 animateDecrementingJ: false
-  //               }),
-  //             this.state.animationDelay + 10
-  //           );
+    this.setState({
+      sort_array: array,
+      sort_circleRadius: 25,
+      sort_index: 1,
+      sort_i: 1,
+      sort_i_circle: 1,
+      sort_j_circle: 0,
+      sort_j: 0,
+      sort_curVal: 0,
+      sort_started: false,
+      sort_started_display: false,
+      sort_finished: false,
+      sort_finished_display: false,
+      sort_initValues: false,
+      sort_initValues_display: false,
+      sort_insideFirstLoop: false,
+      sort_insideFirstLoop_display: false,
+      sort_1_orientIndices: false,
+      sort_1_orientIndices_display: false,
+      sort_1_updateValues: false,
+      sort_1_updateValues_display: false,
+      sort_1_insideSecondLoop: false,
+      sort_1_insideSecondLoop_display: false,
+      sort_1_insideSecondLoop_numArrows: 2,
+      sort_1_increment: false,
+      sort_1_increment_display: false,
+      sort_1_2_updateValues: false,
+      sort_1_2_updateValues_display: false,
+      sort_1_2_swap: false,
+      sort_1_2_swap_display: false,
+      sort_1_2_decrement: false,
+      sort_1_2_decrement_display: false
+    });
+  }
 
-  //           return {
-  //             actionable: false,
-  //             sortVar_j: prevState.sortVar_j - 2,
-  //             decrementingJ: false,
-  //             animateDecrementingJ: true
-  //           };
-  //         } else {
-  //           console.log("decrementing j => j hitting the wall");
-  //         }
-  //       }
-  //       // J > 0 => SWAP
-  //       else if (
-  //         prevState.array[prevState.sortVar_i] <
-  //         prevState.array[prevState.sortVar_j]
-  //         //&&  prevState.sortVar_j >= 0
-  //       ) {
-  //         console.log(
-  //           "swapping " +
-  //             prevState.array[prevState.sortVar_i] +
-  //             " with " +
-  //             prevState.array[prevState.sortVar_j]
-  //         );
-  //         // copy array and reassign positions
-  //         let newArray = prevState.array;
+  resetSortBest() {
+    // Define the array
+    let array = [];
+    for (let i = 0; i < this.state.sort_numElements; i++) {
+      array.push(i);
+    }
 
-  //         let cur = prevState.array[prevState.sortVar_i];
-  //         let prev = prevState.array[prevState.sortVar_j];
+    this.setState({
+      sort_array: array,
+      sort_circleRadius: 25,
+      sort_index: 1,
+      sort_i: 1,
+      sort_i_circle: 1,
+      sort_j_circle: 0,
+      sort_j: 0,
+      sort_curVal: 0,
+      sort_started: false,
+      sort_started_display: false,
+      sort_finished: false,
+      sort_finished_display: false,
+      sort_initValues: false,
+      sort_initValues_display: false,
+      sort_insideFirstLoop: false,
+      sort_insideFirstLoop_display: false,
+      sort_1_orientIndices: false,
+      sort_1_orientIndices_display: false,
+      sort_1_updateValues: false,
+      sort_1_updateValues_display: false,
+      sort_1_insideSecondLoop: false,
+      sort_1_insideSecondLoop_display: false,
+      sort_1_insideSecondLoop_numArrows: 2,
+      sort_1_increment: false,
+      sort_1_increment_display: false,
+      sort_1_2_updateValues: false,
+      sort_1_2_updateValues_display: false,
+      sort_1_2_swap: false,
+      sort_1_2_swap_display: false,
+      sort_1_2_decrement: false,
+      sort_1_2_decrement_display: false
+    });
+  }
 
-  //         console.log(newArray);
-  //         // Swap
-  //         newArray[prevState.sortVar_j] = cur;
-  //         newArray[prevState.sortVar_i] = prev;
+  // Step through
+  step() {
+    this.setState(prev => {
+      // if we haven't started
+      // if (!prev.sort_started) {
+      //   console.log("Have not started sort...\nInitializing Values...");
+      //   return {
+      //     sort_started: true,
+      //     sort_started_display: true,
+      //     codeLinesLit: []
+      //   };
+      // }
 
-  //         console.log(newArray);
+      // if we haven't initialized values
+      if (!prev.sort_initValues) {
+        console.log(
+          "Values initialized...\nDetermining if we can enter first loop"
+        );
+        return {
+          //sort_started_display: false,
+          sort_initValues: true,
+          sort_initValues_display: true,
+          codeLinesLit: [1, 2, 3, 4]
+        };
+      }
+      // if we aren't inside the first loop
+      else if (!prev.sort_insideFirstLoop) {
+        if (prev.sort_index < prev.sort_numElements) {
+          console.log("First Loop: index < numElements");
+          return {
+            sort_1_increment_display: false,
+            sort_initValues_display: false,
+            sort_insideFirstLoop: true,
+            sort_insideFirstLoop_display: true, // turn to false when first loop is finished
+            codeLinesLit: [6, 7]
+          };
+        }
+        // if we just exited the first loop then the sort is finished
+        else if (!prev.sort_finished) {
+          console.log("Sort finished. " + prev.sort_array);
 
-  //         // Set the timeout
-  //         setTimeout(
-  //           () =>
-  //             this.setState({
-  //               actionable: true,
-  //               swapping: false
-  //             }),
-  //           this.state.animationDelay + 10
-  //         );
+          return {
+            sort_insideFirstLoop_display: false,
+            sort_1_increment_display: false,
+            sort_finished: true,
+            sort_finished_display: true,
+            codeLinesLit: [35]
+          };
+        } else {
+          console.log("Does nothing");
+        }
+      }
+      // if we are inside the first loop
+      else if (prev.sort_insideFirstLoop) {
+        // if we haven't oriented the indices
+        if (!prev.sort_1_orientIndices) {
+          console.log("Loop 1: Orienting Indices.");
+          return {
+            sort_1_increment_display: false,
+            sort_1_orientIndices: true,
+            sort_1_orientIndices_display: true,
+            sort_i: prev.sort_index, // delta
+            sort_j: prev.sort_index - 1, // delta
+            codeLinesLit: [9, 10, 11]
+          };
+        }
+        // if we haven't updated the values
+        else if (!prev.sort_1_updateValues) {
+          console.log("Loop 1: Updating Values.");
 
-  //         return {
-  //           array: newArray,
-  //           sortVar_i: prevState.sortVar_j,
-  //           sortVar_j: prevState.sortVar_i,
-  //           numComparisons: prevState.numComparisons + 1,
-  //           numSwaps: prevState.numSwaps + 1,
-  //           actionable: false,
-  //           swapping: true,
-  //           decrementingJ: true
-  //         };
-  //       }
-  //       // increment
-  //       else {
-  //         // increment if the index is within bounds
-  //         if (prevState.sortVar_I < prevState.numElements) {
-  //           console.log("incrementing");
-  //           // Set the timeout
-  //           setTimeout(
-  //             () =>
-  //               this.setState({
-  //                 actionable: true,
-  //                 incrementing: false
-  //               }),
-  //             this.state.animationDelay + 10
-  //           );
+          // determine how many palegreen arrows (j decrements) we are rendering
+          let numArrows = 2;
+          let curVal = prev.sort_array[prev.sort_index];
+          let cur_j = prev.sort_index - 2;
+          while (prev.sort_array[cur_j] > curVal && cur_j >= 0) {
+            numArrows++;
+            cur_j--;
+          }
 
-  //           return {
-  //             sortVar_I: prevState.sortVar_I + 1,
-  //             sortVar_i: prevState.sortVar_I + 1,
-  //             sortVar_j: prevState.sortVar_I,
-  //             sortVar_curVal: prevState.array[prevState.sortVar_I + 1],
-  //             sortVar_prevVal: prevState.array[prevState.sortVar_I],
-  //             numComparisons: prevState.numComparisons + 1,
-  //             actionable: false,
-  //             incrementing: true
-  //           };
-  //         } else {
-  //           console.log("sort finished!");
-  //           return {
-  //             finished: true,
-  //             solving: false
-  //           };
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
+          return {
+            sort_1_orientIndices_display: false,
+            sort_1_updateValues: true,
+            sort_1_updateValues_display: true,
+            sort_curVal: curVal,
+            sort_i_circle: prev.sort_i,
+            sort_j_circle: prev.sort_j,
+            sort_1_insideSecondLoop_numArrows: numArrows,
+            codeLinesLit: [13, 14, 15]
+          };
+        }
+        // if we aren't inside the second loop
+        else if (!prev.sort_1_insideSecondLoop) {
+          console.log(
+            prev.sort_array[prev.sort_i],
+            prev.sort_array[prev.sort_j]
+          );
 
-  // on every click, perform logic and  update position
+          // if the current element is less than the previous element
+          if (prev.sort_array[prev.sort_i] < prev.sort_array[prev.sort_j]) {
+            console.log("Entering 2nd Loop");
+
+            return {
+              sort_1_updateValues_display: false,
+              sort_1_insideSecondLoop: true,
+              sort_1_insideSecondLoop_display: true,
+              codeLinesLit: [17, 18]
+            };
+          }
+          // increment
+          else {
+            console.log("Incrementing.");
+            return {
+              sort_insideFirstLoop: false,
+              sort_1_insideSecondLoop: false,
+              sort_1_insideSecondLoop_display: false,
+              sort_1_increment: true,
+              sort_1_increment_display: true,
+              sort_1_orientIndices: false,
+              sort_1_orientIndices_display: false,
+              sort_1_updateValues: false,
+              sort_1_updateValues_display: false,
+              sort_index: prev.sort_index + 1, // delta
+              codeLinesLit: [32, 33]
+            };
+          }
+        }
+        // if we are inside the second loop
+        else {
+          // update values
+          if (!prev.sort_1_2_updateValues) {
+            console.log("Second Loop: Updating Values");
+            return {
+              sort_i_circle: prev.sort_i,
+              sort_j_circle: prev.sort_j,
+              sort_1_increment_display: false,
+              sort_1_2_updateValues: true,
+              sort_1_2_updateValues_display: true,
+              codeLinesLit: [20, 21, 22]
+            };
+          }
+          // swap
+          else if (!prev.sort_1_2_swap) {
+            console.log("Second Loop: Swapping");
+
+            const cur = prev.sort_array[prev.sort_i];
+            const prv = prev.sort_array[prev.sort_j];
+
+            let newArray = prev.sort_array;
+            newArray[prev.sort_j] = cur;
+            newArray[prev.sort_i] = prv;
+
+            return {
+              sort_1_2_updateValues_display: false,
+              sort_1_2_swap: true,
+              sort_1_2_swap_display: true,
+              sort_array: newArray,
+              sort_i_circle: prev.sort_j,
+              sort_j_circle: prev.sort_i,
+              codeLinesLit: [24, 25, 26]
+            };
+          }
+          // decrement
+          else if (!prev.sort_1_2_decrement) {
+            console.log("Second Loop: Decrementing");
+            return {
+              sort_1_2_swap_display: false,
+              sort_1_2_decrement: true,
+              sort_1_2_decrement_display: true,
+              sort_i: prev.sort_i - 1,
+              sort_j: prev.sort_j - 1,
+              codeLinesLit: [28, 29, 30]
+            };
+          }
+          // break out of second loop (and re-evaluate if it needs to run again)
+          else {
+            // console.log("Second Loop Iteration Complete");
+            // return {
+            //   sort_1_insideSecondLoop: false,
+            //   sort_1_2_updateValues: false,
+            //   sort_1_2_updateValues_display: false,
+            //   sort_1_2_swap: false,
+            //   sort_1_2_swap_display: false,
+            //   sort_1_2_decrement: false,
+            //   sort_1_2_decrement_display: false
+            // };
+
+            //if the current element is less than the previous element
+            if (prev.sort_array[prev.sort_i] < prev.sort_array[prev.sort_j]) {
+              console.log("Entering 2nd Loop");
+
+              return {
+                sort_1_insideSecondLoop: true,
+                sort_1_insideSecondLoop_display: true,
+                sort_1_2_updateValues: false,
+                sort_1_2_updateValues_display: false,
+                sort_1_2_swap: false,
+                sort_1_2_swap_display: false,
+                sort_1_2_decrement: false,
+                sort_1_2_decrement_display: false,
+                codeLinesLit: [17, 18]
+              };
+            }
+            // increment
+            else {
+              console.log("Incrementing.");
+              return {
+                sort_insideFirstLoop: false,
+                sort_1_insideSecondLoop: false,
+                sort_1_insideSecondLoop_display: false,
+                sort_1_2_updateValues: false,
+                sort_1_2_updateValues_display: false,
+                sort_1_2_swap: false,
+                sort_1_2_swap_display: false,
+                sort_1_2_decrement: false,
+                sort_1_2_decrement_display: false,
+                sort_1_increment: true,
+                sort_1_increment_display: true,
+                sort_1_orientIndices: false,
+                sort_1_orientIndices_display: false,
+                sort_1_updateValues: false,
+                sort_1_updateValues_display: false,
+                sort_index: prev.sort_index + 1, // delta
+                codeLinesLit: [32, 33]
+              };
+            }
+          }
+        }
+      } else {
+        console.log("Last if statement.");
+      }
+    });
+  }
+
+  // on every click, perform logic and update position
   render() {
     return (
       <>
@@ -733,6 +697,8 @@ export default class InsertionSort extends React.Component {
               the current index.
               <br />
               <br />
+              Visual Demo of Insertion Sort
+              <br />
               <svg width="100%" height={22 * this.state.codeLines.length}>
                 <rect width="100%" height="26" fill="aliceblue"></rect>
                 {this.state.codeLines.map((line, index) => (
@@ -744,7 +710,7 @@ export default class InsertionSort extends React.Component {
                       width="100%"
                       height="22"
                       fill={
-                        this.state.incrementing && (index === 4 || index === 5)
+                        this.state.codeLinesLit.includes(index)
                           ? "azure"
                           : "aliceblue"
                       }
@@ -761,10 +727,581 @@ export default class InsertionSort extends React.Component {
                   </g>
                 ))}
               </svg>
-              <br />
-              <svg
+              <svg width="680" height="255">
+                <rect
+                  width="100%"
+                  height="100%"
+                  fill="white"
+                  stroke="black"
+                  rx="15"
+                ></rect>
+                {/* Render Blue Arrows (Iteration Loop) */}
+                {this.state.sort_insideFirstLoop_display &&
+                  [...Array(this.state.sort_numElements).keys()].map(index => (
+                    <>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          197 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="30"
+                        x2={
+                          197 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="65"
+                        stroke="blue"
+                        opacity={
+                          this.state.sort_index === index + 1 ? "1.0" : "0.3"
+                        }
+                      ></line>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          192 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="60"
+                        x2={
+                          197 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="65"
+                        stroke="blue"
+                        opacity={
+                          this.state.sort_index === index + 1 ? "1.0" : "0.3"
+                        }
+                      ></line>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          202 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="60"
+                        x2={
+                          197 +
+                          (index + 2) *
+                            (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="65"
+                        stroke="blue"
+                        opacity={
+                          this.state.sort_index === index + 1 ? "1.0" : "0.3"
+                        }
+                      ></line>
+                    </>
+                  ))}
+                <text
+                  x="180"
+                  y="85"
+                  fontSize="20"
+                  dominantBaseline="middle"
+                  textAnchor="end"
+                  fill="black"
+                >
+                  index
+                </text>
+                {/* Render Indices */}
+                {[...Array(this.state.sort_numElements).keys()].map(index => (
+                  <>
+                    {/*  */}
+                    <text
+                      key={Math.random()}
+                      x={
+                        197 +
+                        451 / (this.state.sort_numElements + 1) +
+                        index * (451 / (this.state.sort_numElements + 1))
+                      }
+                      y="85"
+                      fontSize="20"
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                      fill="black"
+                    >
+                      {index}
+                    </text>
+                  </>
+                ))}
+                {/* array[index] */}
+                <text
+                  x="180"
+                  y="150"
+                  fontSize="20"
+                  dominantBaseline="middle"
+                  textAnchor="end"
+                  fill="black"
+                >
+                  array[index]
+                </text>
+                {this.state.sort_initValues && !this.state.sort_finished && (
+                  <>
+                    <circle
+                      className={
+                        this.state.sort_1_2_swap_display
+                          ? css(this.animations.swapCurrent)
+                          : undefined
+                      }
+                      cx={
+                        197 +
+                        (this.state.sort_i_circle + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      cy="150"
+                      r="15"
+                      fill="orange"
+                    ></circle>
+                    <circle
+                      className={
+                        this.state.sort_1_2_swap_display
+                          ? css(this.animations.swapPrevious)
+                          : undefined
+                      }
+                      cx={
+                        197 +
+                        (this.state.sort_j_circle + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      cy="150"
+                      r="15"
+                      fill="mediumvioletred"
+                    ></circle>
+                  </>
+                )}
+                {/* Render array[indices] */}
+                {this.state.sort_array.map((value, index) => (
+                  <>
+                    {index === this.state.sort_i ? (
+                      <text
+                        className={
+                          this.state.sort_1_2_swap_display
+                            ? css(this.animations.swapPrevious)
+                            : undefined
+                        }
+                        key={Math.random()}
+                        x={
+                          197 +
+                          451 / (this.state.sort_numElements + 1) +
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y="150"
+                        fontSize="20"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fill="black"
+                      >
+                        {value}
+                      </text>
+                    ) : index === this.state.sort_j ? (
+                      <text
+                        className={
+                          this.state.sort_1_2_swap_display
+                            ? css(this.animations.swapCurrent)
+                            : undefined
+                        }
+                        key={Math.random()}
+                        x={
+                          197 +
+                          451 / (this.state.sort_numElements + 1) +
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y="150"
+                        fontSize="20"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fill="black"
+                      >
+                        {value}
+                      </text>
+                    ) : (
+                      <text
+                        key={Math.random()}
+                        x={
+                          197 +
+                          451 / (this.state.sort_numElements + 1) +
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y="150"
+                        fontSize="20"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fill="black"
+                      >
+                        {value}
+                      </text>
+                    )}
+                  </>
+                ))}
+                {/* Render palegreen Arrows (Swap Loop) */}
+                {this.state.sort_1_insideSecondLoop_display &&
+                  [
+                    ...Array(
+                      this.state.sort_1_insideSecondLoop_numArrows
+                    ).keys()
+                  ].map(index => (
+                    <>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          197 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="180"
+                        x2={
+                          197 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="215"
+                        stroke={
+                          this.state.sort_j ===
+                          this.state.sort_1_insideSecondLoop_numArrows -
+                            index -
+                            2
+                            ? "mediumvioletred"
+                            : "plum"
+                        }
+                      ></line>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          197 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="180"
+                        x2={
+                          202 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="185"
+                        stroke={
+                          this.state.sort_j ===
+                          this.state.sort_1_insideSecondLoop_numArrows -
+                            index -
+                            2
+                            ? "mediumvioletred"
+                            : "plum"
+                        }
+                      ></line>
+                      <line
+                        key={Math.random()}
+                        x1={
+                          197 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y1="180"
+                        x2={
+                          192 +
+                          this.state.sort_index *
+                            (451 / (this.state.sort_numElements + 1)) -
+                          index * (451 / (this.state.sort_numElements + 1))
+                        }
+                        y2="185"
+                        stroke={
+                          this.state.sort_j ===
+                          this.state.sort_1_insideSecondLoop_numArrows -
+                            index -
+                            2
+                            ? "mediumvioletred"
+                            : "plum"
+                        }
+                      ></line>
+                    </>
+                  ))}
+                {this.state.sort_initValues && !this.state.sort_finished && (
+                  <>
+                    {/* blue index arrow */}
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_increment_display
+                          ? css(this.animations.incrementIndex)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="30"
+                      x2={
+                        197 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="65"
+                      stroke="blue"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      opacity="1.0"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_increment_display
+                          ? css(this.animations.incrementIndex)
+                          : undefined
+                      }
+                      x1={
+                        192 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="60"
+                      x2={
+                        197 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="65"
+                      stroke="blue"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      opacity="1.0"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_increment_display
+                          ? css(this.animations.incrementIndex)
+                          : undefined
+                      }
+                      x1={
+                        202 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="60"
+                      x2={
+                        197 +
+                        (this.state.sort_index + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="65"
+                      stroke="blue"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      opacity="1.0"
+                    ></line>
+                    <text
+                      className={
+                        this.state.sort_1_increment_display
+                          ? css(this.animations.incrementIndex)
+                          : undefined
+                      }
+                      x={
+                        197 +
+                        451 / (this.state.sort_numElements + 1) +
+                        this.state.sort_index *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y="15"
+                      fontSize="12"
+                      dominantBaseline="hanging"
+                      textAnchor="middle"
+                      fill="black"
+                    >
+                      index
+                    </text>
+                    {/* mediumvioletred j arrow */}
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        197 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="215"
+                      stroke="mediumvioletred"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        202 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="185"
+                      stroke="mediumvioletred"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        192 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="185"
+                      stroke="mediumvioletred"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <text
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x={
+                        197 +
+                        (this.state.sort_j + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y="230"
+                      fontSize="12"
+                      dominantBaseline="baseline"
+                      textAnchor="middle"
+                      fill="black"
+                    >
+                      prevIndex
+                    </text>
+                    {/* orange i arrow */}
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        197 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="230"
+                      stroke="orange"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        202 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="185"
+                      stroke="orange"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <line
+                      key={Math.random()}
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x1={
+                        197 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y1="180"
+                      x2={
+                        192 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y2="185"
+                      stroke="orange"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    ></line>
+                    <text
+                      className={
+                        this.state.sort_1_2_decrement_display
+                          ? css(this.animations.decrementIndices)
+                          : undefined
+                      }
+                      x={
+                        197 +
+                        (this.state.sort_i + 1) *
+                          (451 / (this.state.sort_numElements + 1))
+                      }
+                      y="245"
+                      fontSize="12"
+                      dominantBaseline="baseline"
+                      textAnchor="middle"
+                      fill="black"
+                    >
+                      curIndex
+                    </text>
+                  </>
+                )}
+              </svg>
+              {/* <svg
                 width="100%"
-                height="250px"
+                height="200px"
                 fontFamily="Optima"
                 fontSize="20"
               >
@@ -841,7 +1378,7 @@ export default class InsertionSort extends React.Component {
                       : this.state.arrayContentsY
                   }
                   r="16"
-                  fill="orange"
+                  fill="mediumvioletred"
                 ></circle>
                 <circle
                   className={
@@ -905,8 +1442,8 @@ export default class InsertionSort extends React.Component {
                   y1="30"
                   x2="130"
                   y2="200"
-                  stroke="red"
-                  fill="red"
+                  stroke="orange"
+                  fill="orange"
                 ></line>
               </svg>
               <button onClick={() => this.step()}>Step</button>
@@ -960,6 +1497,91 @@ export default class InsertionSort extends React.Component {
                 onClick={() => {
                   this.createReversedArray();
                 }}
+              >
+                Reset (Worst Case)
+              </button>
+              <br />
+              <svg width="100%" height={22 * this.state.codeLines.length}>
+                <rect width="100%" height="26" fill="aliceblue"></rect>
+                {this.state.codeLines.map((line, index) => (
+                  <g key={Math.random()}>
+                    <rect
+                      key={"code_line" + index + "_rect"}
+                      x="0"
+                      y={22 * index}
+                      width="100%"
+                      height="22"
+                      fill={
+                        this.state.incrementing && index === 18
+                          ? "azure"
+                          : this.state.animateDecrementingJ &&
+                            (index === 14 || index === 13)
+                          ? "azure"
+                          : this.state.swapping && index === 11
+                          ? "azure"
+                          : this.state.compaorangeBeforeSwap && index === 9
+                          ? "azure"
+                          : "aliceblue"
+                      }
+                    ></rect>
+                    <text
+                      key={"code_line" + index}
+                      dominantBaseline="middle"
+                      x={15 + 50 * this.state.codeIndendation[index]}
+                      y={11 + 22 * index}
+                      fontFamily="Courier"
+                    >
+                      {line}
+                    </text>
+                  </g>
+                ))}
+              </svg> */}
+              <br />
+              <button onClick={() => this.step()}>STEP</button>
+              <button
+                onClick={() => {
+                  if (this.state.sort_solving) {
+                    clearInterval(timer);
+                    this.setState({ sort_solving: false });
+                  } else {
+                    if (this.state.sort_finished) {
+                      this.setState({ sort_solving: false });
+                    } else {
+                      this.step();
+                      this.setState({ sort_solving: true });
+                      // Set the timeout
+                      var timer = setInterval(() => {
+                        console.log("timer firing");
+                        if (
+                          this.state.sort_solving &&
+                          !this.state.sort_finished
+                        ) {
+                          this.step();
+                        } else {
+                          clearInterval(timer);
+                        }
+                      }, 510);
+                    }
+                  }
+                }}
+              >
+                {this.state.sort_solving ? "Pause" : "Solve"}
+              </button>
+              <button
+                style={{ float: "right" }}
+                onClick={() => this.resetSortRandom()}
+              >
+                Reset (Random)
+              </button>
+              <button
+                style={{ float: "right" }}
+                onClick={() => this.resetSortBest()}
+              >
+                Reset (Best Case)
+              </button>
+              <button
+                style={{ float: "right" }}
+                onClick={() => this.resetSortWorst()}
               >
                 Reset (Worst Case)
               </button>
