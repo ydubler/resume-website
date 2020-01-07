@@ -791,22 +791,22 @@ export default class InsertionSort extends React.Component {
               <br />
               <div
                 style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  textDecoration: "underline"
+                  fontWeight: "bold"
                 }}
               >
                 Interactive Demo of Insertion Sort
               </div>
-              <br />
-              Step through a naive implementation of Insertion Sort below with
-              code that highlights in parallel:
+              Below, an interactive demo of a naive implementation of Insertion
+              Sort. Step through the algorithm, adjust the number of elements,
+              and numerous other things by using the buttons below. The number
+              of comparisons and swaps are recorded and code is highlighted in
+              parallel.
               <br />
               <br />
               <input
                 type="range"
                 min="4"
-                max="14"
+                max="20"
                 defaultValue="8"
                 step="1"
                 onChange={e => {
@@ -1171,8 +1171,7 @@ export default class InsertionSort extends React.Component {
                         </text>
                       </g>
                     ) : (
-                      <text
-                        key={Math.random()}
+                      <g
                         className={
                           this.state.sort_finished
                             ? css(
@@ -1182,19 +1181,23 @@ export default class InsertionSort extends React.Component {
                               )
                             : undefined
                         }
-                        x={
-                          197 +
-                          451 / (this.state.sort_numElements + 1) +
-                          index * (451 / (this.state.sort_numElements + 1))
-                        }
-                        y="150"
-                        fontSize="20"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        fill="black"
                       >
-                        {value}
-                      </text>
+                        <text
+                          key={Math.random()}
+                          x={
+                            197 +
+                            451 / (this.state.sort_numElements + 1) +
+                            index * (451 / (this.state.sort_numElements + 1))
+                          }
+                          y="150"
+                          fontSize="20"
+                          dominantBaseline="middle"
+                          textAnchor="middle"
+                          fill="black"
+                        >
+                          {value}
+                        </text>
+                      </g>
                     )}
                   </React.Fragment>
                 ))}
