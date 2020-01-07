@@ -727,6 +727,146 @@ export default class InsertionSort extends React.Component {
                   </g>
                 ))}
               </svg>
+              <input
+                type="range"
+                min="4"
+                max="14"
+                defaultValue="8"
+                step="1"
+                onChange={e => {
+                  console.log("Array now has " + e.target.value + " elements.");
+                  const numElements = parseInt(e.target.value);
+                  // Define the array
+                  let array = [];
+                  for (let i = 0; i < numElements; i++) {
+                    array.push(i);
+                  }
+
+                  // Shuffle the array
+                  this.shuffle(array);
+
+                  // Aphrodite Animation Stylesheet
+                  this.animations = StyleSheet.create({
+                    incrementIndex: {
+                      animationName: {
+                        ["0%"]: {
+                          transform: `translate(-${451 /
+                            (numElements + 1)}px, 0px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["100%"]: {
+                          transform: "translate(0px, 0px)"
+                          //["-webkit-transform"]: "translate(0px, 0px)"
+                        }
+                      },
+                      animationDuration: `0.5s`,
+                      animationIterationCount: "once",
+                      animationTimingFunction: "linear"
+                    },
+                    decrementIndices: {
+                      animationName: {
+                        ["0%"]: {
+                          transform: `translate(${451 /
+                            (numElements + 1)}px, 0px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["100%"]: {
+                          transform: "translate(0px, 0px)"
+                          //["-webkit-transform"]: "translate(0px, 0px)"
+                        }
+                      },
+                      animationDuration: `0.5s`,
+                      animationIterationCount: "once",
+                      animationTimingFunction: "linear"
+                    },
+                    swapCurrent: {
+                      animationName: {
+                        ["0%"]: {
+                          transform: `translate(${451 /
+                            (numElements + 1)}px, 0px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["50%"]: {
+                          transform: `translate(${451 /
+                            (2 * (numElements + 1))}px, 15px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["100%"]: {
+                          transform: "translate(0px, 0px)"
+                          //["-webkit-transform"]: "translate(0px, 0px)"
+                        }
+                      },
+                      animationDuration: `0.5s`,
+                      animationIterationCount: "once",
+                      animationTimingFunction: "linear"
+                    },
+                    swapPrevious: {
+                      animationName: {
+                        ["0%"]: {
+                          transform: `translate(-${451 /
+                            (numElements + 1)}px, 0px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["50%"]: {
+                          transform: `translate(-${451 /
+                            (2 * (numElements + 1))}px, -15px)`
+                          // ["-webkit-transform"]: `translate(-${500 /
+                          //   this.state.numElements}px, 0px)`
+                        },
+                        ["100%"]: {
+                          transform: "translate(0px, 0px)"
+                          //["-webkit-transform"]: "translate(0px, 0px)"
+                        }
+                      },
+                      animationDuration: `0.5s`,
+                      animationIterationCount: "once",
+                      animationTimingFunction: "linear"
+                    }
+                  });
+
+                  // Set the state
+                  this.setState({
+                    sort_numElements: numElements,
+                    sort_array: array,
+                    sort_solving: false,
+                    sort_circleRadius: 25,
+                    sort_index: 1,
+                    sort_i: 1,
+                    sort_i_circle: 1,
+                    sort_j_circle: 0,
+                    sort_j: 0,
+                    sort_curVal: 0,
+                    sort_started: false,
+                    sort_started_display: false,
+                    sort_finished: false,
+                    sort_finished_display: false,
+                    sort_initValues: false,
+                    sort_initValues_display: false,
+                    sort_insideFirstLoop: false,
+                    sort_insideFirstLoop_display: false,
+                    sort_1_orientIndices: false,
+                    sort_1_orientIndices_display: false,
+                    sort_1_updateValues: false,
+                    sort_1_updateValues_display: false,
+                    sort_1_insideSecondLoop: false,
+                    sort_1_insideSecondLoop_display: false,
+                    sort_1_insideSecondLoop_numArrows: 2,
+                    sort_1_increment: false,
+                    sort_1_increment_display: false,
+                    sort_1_2_updateValues: false,
+                    sort_1_2_updateValues_display: false,
+                    sort_1_2_swap: false,
+                    sort_1_2_swap_display: false,
+                    sort_1_2_decrement: false,
+                    sort_1_2_decrement_display: false
+                  });
+                }}
+              ></input>
               <svg width="680" height="255">
                 <rect
                   width="100%"
@@ -878,47 +1018,53 @@ export default class InsertionSort extends React.Component {
                 {this.state.sort_array.map((value, index) => (
                   <>
                     {index === this.state.sort_i ? (
-                      <text
+                      <g
                         className={
                           this.state.sort_1_2_swap_display
                             ? css(this.animations.swapPrevious)
                             : undefined
                         }
-                        key={Math.random()}
-                        x={
-                          197 +
-                          451 / (this.state.sort_numElements + 1) +
-                          index * (451 / (this.state.sort_numElements + 1))
-                        }
-                        y="150"
-                        fontSize="20"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        fill="black"
                       >
-                        {value}
-                      </text>
+                        <text
+                          key={Math.random()}
+                          x={
+                            197 +
+                            451 / (this.state.sort_numElements + 1) +
+                            index * (451 / (this.state.sort_numElements + 1))
+                          }
+                          y="150"
+                          fontSize="20"
+                          dominantBaseline="middle"
+                          textAnchor="middle"
+                          fill="black"
+                        >
+                          {value}
+                        </text>
+                      </g>
                     ) : index === this.state.sort_j ? (
-                      <text
+                      <g
                         className={
                           this.state.sort_1_2_swap_display
                             ? css(this.animations.swapCurrent)
                             : undefined
                         }
-                        key={Math.random()}
-                        x={
-                          197 +
-                          451 / (this.state.sort_numElements + 1) +
-                          index * (451 / (this.state.sort_numElements + 1))
-                        }
-                        y="150"
-                        fontSize="20"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        fill="black"
                       >
-                        {value}
-                      </text>
+                        <text
+                          key={Math.random()}
+                          x={
+                            197 +
+                            451 / (this.state.sort_numElements + 1) +
+                            index * (451 / (this.state.sort_numElements + 1))
+                          }
+                          y="150"
+                          fontSize="20"
+                          dominantBaseline="middle"
+                          textAnchor="middle"
+                          fill="black"
+                        >
+                          {value}
+                        </text>
+                      </g>
                     ) : (
                       <text
                         key={Math.random()}
@@ -1584,6 +1730,13 @@ export default class InsertionSort extends React.Component {
                 onClick={() => this.resetSortWorst()}
               >
                 Reset (Worst Case)
+              </button>
+              <button
+                onClick={() =>
+                  console.log("numElements = " + this.state.sort_numElements)
+                }
+              >
+                numElems
               </button>
             </div>
           </div>
