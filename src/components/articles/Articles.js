@@ -68,6 +68,34 @@ export default class Articles extends React.Component {
           </div>
           <br />
           <br />
+          {/* Recursion */}
+          <div
+            style={{
+              display: "inline-block",
+              width: "500px",
+              textAlign: "left",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            <a
+              style={{ textDecoration: "none" }}
+              href="/articles/insertion-sort"
+            >
+              Recursion
+            </a>
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              width: "150px",
+              textAlign: "right",
+              backgroundColor: "aliceblue"
+            }}
+          >
+            Under Construction
+          </div>
+          <br />
+          <br />
           {/*Minimum Spanning Trees */}
           <div
             style={{
@@ -89,7 +117,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            Not Yet Published
+            ?
           </div>
           <br />
           <br />
@@ -114,7 +142,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            Not Yet Published
+            ?
           </div>
           <br />
           <br />
@@ -139,7 +167,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            Not Yet Published
+            ?
           </div>
           <br />
           <br />
@@ -164,7 +192,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            Not Yet Published
+            ?
           </div>
           <br />
           <br />
@@ -189,7 +217,7 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            Not Yet Published
+            ?
           </div>
         </div>
       </>

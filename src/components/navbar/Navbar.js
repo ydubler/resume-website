@@ -5,213 +5,258 @@ export default class Navbar extends React.Component {
     super(props);
 
     this.state = {
-      location: ""
+      location: "",
+      buffer: 20,
+      urls: [
+        "",
+        "education",
+        "skills",
+        "resume",
+        "articles",
+        "3dmodels",
+        "contact"
+      ],
+      buttons: [
+        "Bio",
+        "Education",
+        "Skills",
+        "Resume",
+        "Articles",
+        "3DModels",
+        "Contact"
+      ],
+      widthBio: 0,
+      widthEducation: 0,
+      widthSkills: 0,
+      widthResume: 0,
+      widthArticles: 0,
+      width3DModels: 0,
+      widthContact: 0,
+      insideBio: false,
+      insideEducation: false,
+      insideSkills: false,
+      insideResume: false,
+      insideArticles: false,
+      inside3DModels: false,
+      insideContact: false
     };
+
+    this.getButtonStartX = this.getButtonStartX.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      location: this.props.location,
-      windowInnerWidth: window.innerWidth
-    });
-
     window.addEventListener("resize", () => {
       console.log("resize");
       this.setState({ windowInnerWidth: window.innerWidth });
     });
+
+    this.setState({
+      location: this.props.location,
+      windowInnerWidth: window.innerWidth,
+      widthBio: document.getElementById("width_bio").clientWidth,
+      widthEducation: document.getElementById("width_education").clientWidth,
+      widthSkills: document.getElementById("width_skills").clientWidth,
+      widthResume: document.getElementById("width_resume").clientWidth,
+      widthArticles: document.getElementById("width_articles").clientWidth,
+      width3DModels: document.getElementById("width_3dmodels").clientWidth,
+      widthContact: document.getElementById("width_contact").clientWidth
+    });
+  }
+
+  getButtonStartX(buttonNumber) {
+    let x = 0;
+
+    for (let i = 0; i < buttonNumber; i++) {
+      x += this.state["width" + this.state.buttons[i]] + 2 * this.state.buffer;
+    }
+
+    return x;
   }
 
   render() {
     return (
       <>
-        {this.state.windowInnerWidth >= 0 ? (
-          <>
-            <hr style={{ margin: 0 }} />
-            <div
-              style={{
-                width: "100%",
-                height: "15px",
-                backgroundColor: "lightgray"
-              }}
-            ></div>
-            <div style={{ textAlign: "center", backgroundColor: "lightgray" }}>
-              <a
-                style={{
-                  color: this.state.mouseEnterBio
-                    ? "black"
-                    : this.state.location.pathname === "/"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterBio: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterBio: false });
-                }}
-              >
-                Bio
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterExperience
-                    ? "black"
-                    : this.state.location.pathname === "/experience"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/experience"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterExperience: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterExperience: false });
-                }}
-              >
-                Experience
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterSkills
-                    ? "black"
-                    : this.state.location.pathname === "/skills"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/skills"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterSkills: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterSkills: false });
-                }}
-              >
-                Skills
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterEducation
-                    ? "black"
-                    : this.state.location.pathname === "/education"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/education"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterEducation: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterEducation: false });
-                }}
-              >
-                Education
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
-              <div style={{ display: "inline-block", color: "dimgray" }}>
-                Resume
-              </div>
-              &nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterDownloadResume
-                    ? "black"
-                    : this.state.location.pathname === "/resume"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/resume"
-                type="post"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterDownloadResume: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterDownloadResume: false });
-                }}
-              >
-                <u>.pdf</u>
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterArticles
-                    ? "black"
-                    : this.state.location.pathname === "/articles"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/articles"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterArticles: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterArticles: false });
-                }}
-              >
-                Articles
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnter3dModels
-                    ? "black"
-                    : this.state.location.pathname === "/3d-models"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/3d-models"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnter3dModels: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnter3dModels: false });
-                }}
-              >
-                3d Models
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                style={{
-                  color: this.state.mouseEnterContact
-                    ? "black"
-                    : this.state.location.pathname === "/contact"
-                    ? "black"
-                    : "dimgray",
-                  textDecorationLine: "none"
-                }}
-                href="/contact"
-                onMouseEnter={() => {
-                  this.setState({ mouseEnterContact: true });
-                }}
-                onMouseLeave={() => {
-                  this.setState({ mouseEnterContact: false });
-                }}
-              >
-                Contact
-              </a>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: "15px",
-                backgroundColor: "lightgray"
-              }}
-            ></div>
-            <hr style={{ margin: 0 }} />
-          </>
-        ) : (
-          <></>
-        )}
+        <div
+          id="width_bio"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Bio
+        </div>
+        <div
+          id="width_education"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Education
+        </div>
+        <div
+          id="width_experience"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Experience
+        </div>
+        <div
+          id="width_skills"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Skills
+        </div>
+        <div
+          id="width_resume"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Resume
+        </div>
+        <div
+          id="width_articles"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Articles
+        </div>
+        <div
+          id="width_3dmodels"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          3D-Models
+        </div>
+        <div
+          id="width_contact"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            fontSize: "12"
+          }}
+        >
+          Contact
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <svg
+            width={this.getButtonStartX(this.state.buttons.length)}
+            height="45px"
+          >
+            {this.state.buttons.map((value, index) => (
+              <g key={Math.random()}>
+                <rect
+                  x={this.getButtonStartX(index)}
+                  y="0"
+                  width={
+                    this.state["width" + this.state.buttons[index]] +
+                    2 * this.state.buffer
+                  }
+                  height={
+                    this.state.location.pathname ===
+                    "/" + this.state.urls[index]
+                      ? "45"
+                      : this.state["inside" + value]
+                      ? "45"
+                      : "40"
+                  }
+                  fill={
+                    this.state.location.pathname ===
+                    "/" + this.state.urls[index]
+                      ? "dodgerblue"
+                      : this.state["inside" + value]
+                      ? "dodgerblue"
+                      : "deepskyblue"
+                  }
+                  onMouseEnter={() =>
+                    this.setState({ ["inside" + value]: true })
+                  }
+                  onMouseLeave={() =>
+                    this.setState({ ["inside" + value]: false })
+                  }
+                ></rect>
+                <line
+                  x1={this.getButtonStartX(index)}
+                  y1="0"
+                  x2={this.getButtonStartX(index)}
+                  y2="40"
+                  stroke="lightblue"
+                  pointerEvents="none"
+                ></line>
+                <text
+                  x={this.getButtonStartX(index) + this.state.buffer}
+                  y="20"
+                  fontFamily="Arial"
+                  fontWeight="bold"
+                  fontSize="12"
+                  alignmentBaseline="middle"
+                  pointerEvents="none"
+                  fill="white"
+                >
+                  {value}
+                </text>
+              </g>
+            ))}
+          </svg>
+        </div>
       </>
     );
   }
