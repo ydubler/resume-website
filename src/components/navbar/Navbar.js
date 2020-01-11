@@ -9,6 +9,7 @@ export default class Navbar extends React.Component {
     super(props);
 
     this.state = {
+      windowInnerWidth: 20,
       location: "",
       buffer: 20,
       urls: [
@@ -98,6 +99,7 @@ export default class Navbar extends React.Component {
 
     // Set the state
     this.setState({
+      windowInnerWidth: window.innerWidth,
       location: this.props.location,
       pathname: location,
       windowInnerWidth: window.innerWidth,
@@ -439,23 +441,18 @@ export default class Navbar extends React.Component {
                 {value}
               </div>
             ))}
-
-            <div style={{ textAlign: "center" }}>
-              <svg width="100%" height={40 * this.state.buttons.length}>
+            <div style={{ textAlign: "center", display: "inline" }}>
+              <svg width="100%" height={40 * this.state.buttons.length + "px"}>
                 {this.state.buttons.map((value, index) =>
                   value != "Resume" ? (
                     <g key={Math.random()}>
                       {/* <a href={"/" + this.state.urls[index]}> */}
                       <rect
-                        x="0"
+                        x="10"
                         y={40 * index}
-                        width="100%"
+                        width={this.state.windowInnerWidth - 20}
                         height="40px"
-                        rx={
-                          this.state.pathname === "/" + this.state.urls[index]
-                            ? "5"
-                            : "0"
-                        }
+                        rx="10"
                         fill={
                           this.state.pathname === "/" + this.state.urls[index]
                             ? "dodgerblue"
@@ -474,7 +471,7 @@ export default class Navbar extends React.Component {
                       <g>
                         <text
                           x="50%"
-                          y={40 * index}
+                          y={40 * index + 20}
                           fontFamily="Arial"
                           fontSize="20"
                           fontWeight={
@@ -490,6 +487,14 @@ export default class Navbar extends React.Component {
                           {value}
                         </text>
                       </g>
+                      <line
+                        x1="0"
+                        y1={40 * (index + 1)}
+                        x2="100%"
+                        y2={40 * (index + 1)}
+                        stroke="white"
+                        strokeWidth="3"
+                      ></line>
                     </g>
                   ) : (
                     <g key={Math.random()}>
@@ -498,7 +503,7 @@ export default class Navbar extends React.Component {
                         href={"/" + this.state.urls[index]}
                       >
                         <rect
-                          x="0"
+                          x="5%"
                           y={40 * index}
                           width="90%"
                           height="40"
@@ -527,7 +532,7 @@ export default class Navbar extends React.Component {
                       <g>
                         <text
                           x="50%"
-                          y="10"
+                          y={40 * index + 20}
                           fontFamily="Arial"
                           fontSize="20"
                           fontWeight="bold"
@@ -536,40 +541,9 @@ export default class Navbar extends React.Component {
                           pointerEvents="none"
                           fill="white"
                         >
-                          {value}
+                          Download {value} (PDF)
                         </text>
                       </g>
-                      <path
-                        key={Math.random()}
-                        className={
-                          this.state["inside" + value]
-                            ? css(this.animations.downloadArrow)
-                            : undefined
-                        }
-                        stroke="black"
-                        strokeWidth="0"
-                        fill="white"
-                        d={`M${this.getButtonStartX(index) +
-                          this.state.widthResume / 2 +
-                          this.state.buffer -
-                          16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
-                          this.state.widthResume / 2 +
-                          this.state.buffer -
-                          10} 32 L ${this.getButtonStartX(index) +
-                          this.state.widthResume / 2 +
-                          this.state.buffer -
-                          22} 25 h 6`}
-                        pointerEvents="none"
-                      ></path>
-                      <line
-                        x1={this.getButtonStartX(index) + 20}
-                        y1="38"
-                        x2={this.getButtonStartX(index + 1) - 40}
-                        y2="38"
-                        stroke="white"
-                        strokeWidth="2"
-                        pointerEvents="none"
-                      ></line>
                     </g>
                   )
                 )}
