@@ -549,6 +549,7 @@ export default class Navbar extends React.Component {
                 )}
               </svg>
             </div>
+            <br />
           </>
         )}
       </>
