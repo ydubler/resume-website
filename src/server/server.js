@@ -166,20 +166,41 @@ server.get("/resume", (req, res) => {
   //   );
   // });
 
-  var file = fs.createReadStream(__dirname + "/public/testResume.pdf");
-  var stat = fs.statSync(__dirname + "/public/testResume.pdf");
-  res.setHeader("Content-Length", stat.size);
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", "attachment; filename=testResume.pdf");
-  file.pipe(res);
+  // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
+  const { html, css } = StyleSheetServer.renderStatic(() => {
+    return ReactDOMServer.renderToString(
+      <>
+        <Navbar />
+        <Resume />
+      </>
+    );
+  });
 
+  res.send(`
+  <html>
+  <head>
+      <title>SSR React App</title>
+  </head>
+  <body style="margin:0px;font-family:Helvetica Neue" id="body">
+      <div id="mountNode">${html}</div>
+      <script src="dist/main.js"></script>
+  </body>
+  </html>
+  `);
+
+  // GOOD
+  // var file = fs.createReadStream(__dirname + "/public/testResume.pdf");
+  // var stat = fs.statSync(__dirname + "/public/testResume.pdf");
+  // res.setHeader("Content-Length", stat.size);
+  // res.setHeader("Content-Type", "application/pdf");
+  // res.setHeader("Content-Disposition", "attachment; filename=testResume.pdf");
+  // file.pipe(res);
+
+  // BAD
   // var path = require("path");
   // var file = path.join(__dirname, "/public/testResume.pdf");
-
   // res.setHeader("Content-Type", "application/pdf");
-
   // res.download(file);
-
   //res.download(__dirname + "/public/testResume.pdf");
 });
 

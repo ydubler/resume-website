@@ -337,7 +337,8 @@ export default class Navbar extends React.Component {
                     }}
                   ></rect>
                   {/* </a> */}
-                  {this.state["inside" + value] ? (
+                  {this.state["inside" + value] &&
+                  this.state.pathname != "/" + this.state.urls[index] ? (
                     <>
                       <line
                         x1={this.getButtonStartX(index) + 1}
