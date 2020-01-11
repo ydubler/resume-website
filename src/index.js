@@ -40,7 +40,7 @@ ReactDOM.hydrate(
     <Route exact path="/resume" component={Resume}></Route>
 
     <Route exact path="/articles" component={Articles}></Route>
-    <Route exact path="/3d-models" component={ThreeDModels}></Route>
+    <Route exact path="/3dmodels" component={ThreeDModels}></Route>
 
     <Route exact path="/contact" component={Contact}></Route>
     <Route exact path="/articles/insertion-sort" component={InsertionSort} />

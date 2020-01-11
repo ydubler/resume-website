@@ -44,6 +44,8 @@ server.get("/public/images/:id", (req, res) => {
 
 // Getting "/"
 server.get("/", (req, res) => {
+  console.log("get request to /");
+
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -70,6 +72,8 @@ server.get("/", (req, res) => {
 
 // Getting "/experience"
 server.get("/experience", (req, res) => {
+  console.log("get request to /experience");
+
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -96,6 +100,8 @@ server.get("/experience", (req, res) => {
 
 // Getting "/skills"
 server.get("/skills", (req, res) => {
+  console.log("get request to /skills");
+
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -122,6 +128,8 @@ server.get("/skills", (req, res) => {
 
 // Getting "/education"
 server.get("/education", (req, res) => {
+  console.log("get request to /education");
+
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -147,6 +155,7 @@ server.get("/education", (req, res) => {
 
 // Getting "/resume"
 server.get("/resume", (req, res) => {
+  console.log("get request to /resume");
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   // const { html, css } = StyleSheetServer.renderStatic(() => {
   //   return ReactDOMServer.renderToString(
@@ -176,6 +185,7 @@ server.get("/resume", (req, res) => {
 
 // Getting "/articles"
 server.get("/articles", (req, res) => {
+  console.log("get request to /articles");
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -201,7 +211,8 @@ server.get("/articles", (req, res) => {
 });
 
 // Getting "/3d-models"
-server.get("/3d-models", (req, res) => {
+server.get("/3dmodels", (req, res) => {
+  console.log("get request to /3dmodels");
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -228,6 +239,7 @@ server.get("/3d-models", (req, res) => {
 
 // Getting "/contact"
 server.get("/contact", (req, res) => {
+  console.log("get request to /contact");
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
@@ -254,6 +266,7 @@ server.get("/contact", (req, res) => {
 
 // Getting "/articles/insertion-sort"
 server.get("/articles/insertion-sort", (req, res) => {
+  console.log("get request to /articles/insertion-sort");
   // Incorporate Aphrodite's StyleSheetServer.renderStatic() function into the standard ReactDomServer function
   const { html, css } = StyleSheetServer.renderStatic(() => {
     return ReactDOMServer.renderToString(
