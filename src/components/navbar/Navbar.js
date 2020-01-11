@@ -331,6 +331,7 @@ export default class Navbar extends React.Component {
                     onClick={() => {
                       // console.log(this.props.history.location.pathname);
                       this.props.history.push("/" + this.state.urls[index]);
+                      this.setState({ pathname: "/" + this.state.urls[index] });
                       // this.props.location = "/" + this.state.urls[index];
                       // this.window.location = "/" + this.state.urls[index];
                     }}
@@ -396,38 +397,40 @@ export default class Navbar extends React.Component {
                 </g>
               ) : (
                 <g key={Math.random()}>
-                  {/* <a href={"/" + this.state.urls[index]}> */}
-                  <rect
-                    x={this.getButtonStartX(index) + 3}
-                    y="-10"
-                    width={
-                      this.state["width" + this.state.buttons[index]] +
-                      2 * this.state.buffer -
-                      6
-                    }
-                    height="50"
-                    rx="10"
-                    fill={
-                      this.state.pathname === "/" + this.state.urls[index]
-                        ? "darkmagenta"
-                        : this.state["inside" + value]
-                        ? "darkmagenta"
-                        : "darkorchid"
-                    }
-                    onMouseEnter={() =>
-                      this.setState({ ["inside" + value]: true })
-                    }
-                    onMouseLeave={() =>
-                      this.setState({ ["inside" + value]: false })
-                    }
-                    onClick={() => {
-                      // console.log(this.props.history.location.pathname);
-                      this.props.history.push("/" + this.state.urls[index]);
-                      // this.props.location = "/" + this.state.urls[index];
-                      // this.window.location = "/" + this.state.urls[index];
-                    }}
-                  ></rect>
-                  {/* </a> */}) : (<></>
+                  <a href={"/" + this.state.urls[index]}>
+                    <rect
+                      x={this.getButtonStartX(index) + 3}
+                      y="-10"
+                      width={
+                        this.state["width" + this.state.buttons[index]] +
+                        2 * this.state.buffer -
+                        6
+                      }
+                      height="50"
+                      rx="10"
+                      fill={
+                        this.state["inside" + value]
+                          ? "darkmagenta"
+                          : "darkorchid"
+                      }
+                      onMouseEnter={() =>
+                        this.setState({ ["inside" + value]: true })
+                      }
+                      onMouseLeave={() =>
+                        this.setState({ ["inside" + value]: false })
+                      }
+                      onClick={() => {
+                        // console.log(this.props.history.location.pathname);
+                        this.props.history.push("/" + this.state.urls[index]);
+                        this.setState({
+                          pathname: "/" + this.state.urls[index]
+                        });
+                        // this.props.location = "/" + this.state.urls[index];
+                        // this.window.location = "/" + this.state.urls[index];
+                      }}
+                    ></rect>
+                  </a>
+                  ) : (<></>
                   )}
                   <g>
                     <text
@@ -440,11 +443,7 @@ export default class Navbar extends React.Component {
                       y="10"
                       fontFamily="Arial"
                       fontWeight={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "bold"
-                          : this.state["inside" + value]
-                          ? "bold"
-                          : "regular"
+                        this.state["inside" + value] ? "bold" : "regular"
                       }
                       fontSize="12"
                       textAnchor="middle"
