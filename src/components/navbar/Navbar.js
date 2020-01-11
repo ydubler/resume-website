@@ -421,7 +421,7 @@ export default class Navbar extends React.Component {
           </>
         )}
         {/* MOBILE BROWSERS */}
-        {isBrowser && (
+        {isMobile && (
           <>
             {this.state.buttons.map((value, index) => (
               <div
