@@ -400,7 +400,7 @@ export default class Navbar extends React.Component {
                 <g key={Math.random()}>
                   <a href={"/" + this.state.urls[index]}>
                     <rect
-                      x={this.getButtonStartX(index) + 13}
+                      x={this.getButtonStartX(index) + 3}
                       y="-10"
                       width={
                         this.state["width" + this.state.buttons[index]] +
@@ -440,7 +440,8 @@ export default class Navbar extends React.Component {
                         this.getButtonStartX(index) +
                         (2 * this.state.buffer +
                           this.state["width" + this.state.buttons[index]]) /
-                          2
+                          2 -
+                        10
                       }
                       y="10"
                       fontFamily="Arial"
@@ -469,18 +470,19 @@ export default class Navbar extends React.Component {
                     d={`M${this.getButtonStartX(index) +
                       this.state.widthResume / 2 +
                       this.state.buffer -
-                      6} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
-                      this.state.widthResume / 2 +
-                      this.state.buffer} 32 L ${this.getButtonStartX(index) +
+                      16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
                       this.state.widthResume / 2 +
                       this.state.buffer -
-                      12} 25 h 6`}
+                      10} 32 L ${this.getButtonStartX(index) +
+                      this.state.widthResume / 2 +
+                      this.state.buffer -
+                      22} 25 h 6`}
                     pointerEvents="none"
                   ></path>
                   <line
-                    x1={this.getButtonStartX(index) + 30}
+                    x1={this.getButtonStartX(index) + 20}
                     y1="38"
-                    x2={this.getButtonStartX(index + 1) - 30}
+                    x2={this.getButtonStartX(index + 1) - 40}
                     y2="38"
                     stroke="white"
                     strokeWidth="2"
