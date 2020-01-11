@@ -137,7 +137,7 @@ export default class SVGFirstLastName extends React.Component {
             style={{ display: "inline" }}
             width={isBrowser ? "680" : undefined}
             height={isBrowser ? "350" : undefined}
-            viewBox={isBrowser ? "0 0  720 350" : "0 320 720 670"}
+            viewBox="0 0  720 350"
           >
             <path
               ref={ref => (this.firstNamePath = ref)}
