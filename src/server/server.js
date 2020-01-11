@@ -32,7 +32,9 @@ const server = express();
 // Set up server properties
 server.use("/dist", express.static("dist/"));
 // Tell express that when it sees /public make it translate it to __dirname + /public
-server.use("/public", express.static(__dirname + "/public"));
+var path = require("path");
+var appDir = path.dirname(require.main.filename);
+server.use("/public", express.static(appDir + "/public"));
 
 // Send neccessary files server->client
 server.get("/public/images/:id", (req, res) => {
