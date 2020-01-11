@@ -50,7 +50,12 @@ export default class Articles extends React.Component {
             }}
           >
             <div
-              style={{ color: "purple", cursor: "pointer" }}
+              style={{
+                display: "inline-block",
+                width: "auto",
+                color: "purple",
+                cursor: "pointer"
+              }}
               onClick={() => {
                 this.props.history.push("/articles/insertion-sort");
               }}

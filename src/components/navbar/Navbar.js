@@ -400,12 +400,13 @@ export default class Navbar extends React.Component {
                 <g key={Math.random()}>
                   <a href={"/" + this.state.urls[index]}>
                     <rect
-                      x={this.getButtonStartX(index) + 3}
+                      x={this.getButtonStartX(index) + 13}
                       y="-10"
                       width={
                         this.state["width" + this.state.buttons[index]] +
                         2 * this.state.buffer -
-                        6
+                        6 -
+                        20
                       }
                       height="50"
                       rx="10"
