@@ -441,8 +441,13 @@ export default class Navbar extends React.Component {
                 {value}
               </div>
             ))}
-            <div style={{ textAlign: "center", display: "inline" }}>
-              <svg width="100%" height={40 * this.state.buttons.length + "px"}>
+            <div style={{ display: "inline" }}>
+              <svg
+                width="100%"
+                height={40 * this.state.buttons.length + "px"}
+                x="0"
+                y="0"
+              >
                 {this.state.buttons.map((value, index) =>
                   value != "Resume" ? (
                     <g key={Math.random()}>
