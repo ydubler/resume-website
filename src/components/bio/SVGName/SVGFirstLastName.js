@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
+// Detect the device being used
+import { isBrowser, isMobile } from "react-device-detect";
 
 export default class SVGFirstLastName extends React.Component {
   constructor(props) {
@@ -131,7 +133,12 @@ export default class SVGFirstLastName extends React.Component {
     return (
       <>
         <div style={{ textAlign: "center" }}>
-          <svg style={{ display: "inline" }} width="680" height="350">
+          <svg
+            style={{ display: "inline" }}
+            width={isBrowser ? "680" : undefined}
+            height={isBrowser ? "350" : undefined}
+            viewBox={isBrowser ? "0 0  720 350" : "0 320 720 670"}
+          >
             <path
               ref={ref => (this.firstNamePath = ref)}
               id="firstName"
