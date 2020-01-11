@@ -130,22 +130,8 @@ export default class SVGFirstLastName extends React.Component {
   render() {
     return (
       <>
-        <div
-          style={
-            this.state.windowInnerWidth < 800
-              ? { textAlign: "left" }
-              : { textAlign: "center" }
-          }
-        >
-          <svg viewBox="0 0 720 350">
-            {/* <line
-            x1="0"
-            y1="50"
-            x2="100%"
-            y2="50"
-            stroke="aquamarine"
-            strokeWidth="20px"
-          ></line> */}
+        <div style={{ textAlign: "center" }}>
+          <svg width="680" height="350" viewBox="0 0 720 350">
             <path
               ref={ref => (this.firstNamePath = ref)}
               id="firstName"

@@ -61,6 +61,7 @@ export default class Navbar extends React.Component {
       this.setState({ windowInnerWidth: window.innerWidth });
     });
 
+    // Get the widths of the buttons
     let widthBio = document.getElementById("width_bio").clientWidth;
     let widthEducation = document.getElementById("width_education").clientWidth;
     let widthSkills = document.getElementById("width_skills").clientWidth;
@@ -70,6 +71,22 @@ export default class Navbar extends React.Component {
     let width3DModels = document.getElementById("width_3dmodels").clientWidth;
     let widthContact = document.getElementById("width_contact").clientWidth;
 
+    // Create the widths array to make the jiggly animations
+    let widths = [
+      widthBio,
+      widthEducation,
+      widthSkills,
+      widthPortfolio,
+      widthArticles,
+      width3DModels,
+      widthContact,
+      widthResume
+    ];
+
+    // Create jiggly animations
+    this.createJigglyAnimations(widths);
+
+    // get the root path (so that articles/articleName highlights the Articles tab)
     let location = "/";
     for (let i = 1; i < this.props.location.pathname.length; i++) {
       let char = this.props.location.pathname.charAt(i);
@@ -79,6 +96,7 @@ export default class Navbar extends React.Component {
       location += this.props.location.pathname.charAt(i);
     }
 
+    // Set the state
     this.setState({
       location: this.props.location,
       pathname: location,
@@ -92,20 +110,6 @@ export default class Navbar extends React.Component {
       widthContact: widthContact,
       widthResume: widthResume
     });
-
-    let widths = [
-      widthBio,
-      widthEducation,
-      widthSkills,
-      widthPortfolio,
-
-      widthArticles,
-      width3DModels,
-      widthContact,
-      widthResume
-    ];
-
-    this.createJigglyAnimations(widths);
   }
 
   // Get the button start X position
@@ -180,143 +184,28 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <>
+        {/* DESKTOP BROWSERS */}
         {isBrowser && (
           <>
-            <div
-              id="width_bio"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Bio
-            </div>
-            <div
-              id="width_education"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Education
-            </div>
-            <div
-              id="width_experience"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Experience
-            </div>
-            <div
-              id="width_skills"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Skills
-            </div>
-            <div
-              id="width_portfolio"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Portfolio
-            </div>
-            <div
-              id="width_resume"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Resume
-            </div>
-            <div
-              id="width_articles"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Articles
-            </div>
-            <div
-              id="width_3dmodels"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              3D-Models
-            </div>
-            <div
-              id="width_contact"
-              style={{
-                position: "absolute",
-                visibility: "hidden",
-                height: "auto",
-                width: "auto",
-                whiteSpace: "nowrap",
-                fontFamily: "Arial",
-                fontWeight: "regular",
-                fontSize: "14"
-              }}
-            >
-              Contact
-            </div>
+            {this.state.buttons.map((value, index) => (
+              <div
+                key={Math.random()}
+                id={"width_" + value.toLowerCase()}
+                style={{
+                  position: "absolute",
+                  visibility: "hidden",
+                  height: "auto",
+                  width: "auto",
+                  whiteSpace: "nowrap",
+                  fontFamily: "Arial",
+                  fontWeight: "regular",
+                  fontSize: "14"
+                }}
+              >
+                {value}
+              </div>
+            ))}
+
             <div style={{ textAlign: "center" }}>
               <svg
                 width={this.getButtonStartX(this.state.buttons.length) - 20}
@@ -483,6 +372,165 @@ export default class Navbar extends React.Component {
                           fontWeight={
                             this.state["inside" + value] ? "bold" : "regular"
                           }
+                          textAnchor="middle"
+                          alignmentBaseline="middle"
+                          pointerEvents="none"
+                          fill="white"
+                        >
+                          {value}
+                        </text>
+                      </g>
+                      <path
+                        key={Math.random()}
+                        className={
+                          this.state["inside" + value]
+                            ? css(this.animations.downloadArrow)
+                            : undefined
+                        }
+                        stroke="black"
+                        strokeWidth="0"
+                        fill="white"
+                        d={`M${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          10} 32 L ${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          22} 25 h 6`}
+                        pointerEvents="none"
+                      ></path>
+                      <line
+                        x1={this.getButtonStartX(index) + 20}
+                        y1="38"
+                        x2={this.getButtonStartX(index + 1) - 40}
+                        y2="38"
+                        stroke="white"
+                        strokeWidth="2"
+                        pointerEvents="none"
+                      ></line>
+                    </g>
+                  )
+                )}
+              </svg>
+            </div>
+          </>
+        )}
+        {/* MOBILE BROWSERS */}
+        {isMobile && (
+          <>
+            {this.state.buttons.map((value, index) => (
+              <div
+                key={Math.random()}
+                id={"width_" + value.toLowerCase()}
+                style={{
+                  position: "absolute",
+                  visibility: "hidden",
+                  height: "auto",
+                  width: "auto",
+                  whiteSpace: "nowrap",
+                  fontFamily: "Arial",
+                  fontWeight: "regular",
+                  fontSize: "14"
+                }}
+              >
+                {value}
+              </div>
+            ))}
+
+            <div style={{ textAlign: "center" }}>
+              <svg width="100%" height={40 * this.state.buttons.length}>
+                {this.state.buttons.map((value, index) =>
+                  value != "Resume" ? (
+                    <g key={Math.random()}>
+                      {/* <a href={"/" + this.state.urls[index]}> */}
+                      <rect
+                        x="0"
+                        y={40 * index}
+                        width="100%"
+                        height="40px"
+                        rx={
+                          this.state.pathname === "/" + this.state.urls[index]
+                            ? "5"
+                            : "0"
+                        }
+                        fill={
+                          this.state.pathname === "/" + this.state.urls[index]
+                            ? "dodgerblue"
+                            : "deepskyblue"
+                        }
+                        onClick={() => {
+                          // console.log(this.props.history.location.pathname);
+                          this.props.history.push("/" + this.state.urls[index]);
+                          this.setState({
+                            pathname: "/" + this.state.urls[index]
+                          });
+                          // this.props.location = "/" + this.state.urls[index];
+                          // this.window.location = "/" + this.state.urls[index];
+                        }}
+                      ></rect>
+                      <g>
+                        <text
+                          x="50%"
+                          y={40 * index}
+                          fontFamily="Arial"
+                          fontSize="20"
+                          fontWeight={
+                            this.state.pathname === "/" + this.state.urls[index]
+                              ? "bold"
+                              : "regular"
+                          }
+                          textAnchor="middle"
+                          alignmentBaseline="middle"
+                          pointerEvents="none"
+                          fill="white"
+                        >
+                          {value}
+                        </text>
+                      </g>
+                    </g>
+                  ) : (
+                    <g key={Math.random()}>
+                      <a
+                        xlinkHref={"/" + this.state.urls[index]}
+                        href={"/" + this.state.urls[index]}
+                      >
+                        <rect
+                          x="0"
+                          y={40 * index}
+                          width="90%"
+                          height="40"
+                          rx="20"
+                          fill="darkmagenta"
+                          onMouseEnter={() =>
+                            this.setState({ ["inside" + value]: true })
+                          }
+                          onMouseLeave={() =>
+                            this.setState({ ["inside" + value]: false })
+                          }
+                          onClick={() => {
+                            // console.log(this.props.history.location.pathname);
+                            // this.props.history.push("/" + this.state.urls[index]);
+                            // this.setState({
+                            //   pathname: "/" + this.state.urls[index]
+                            // });
+                            // this.props.location = "/" + this.state.urls[index];
+                            // this.window.location = "/" + this.state.urls[index];
+                            // this.downloadResume();
+                          }}
+                        ></rect>
+                      </a>
+                      ) : (<></>
+                      )}
+                      <g>
+                        <text
+                          x="50%"
+                          y="10"
+                          fontFamily="Arial"
+                          fontSize="20"
+                          fontWeight="bold"
                           textAnchor="middle"
                           alignmentBaseline="middle"
                           pointerEvents="none"
