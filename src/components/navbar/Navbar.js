@@ -84,10 +84,10 @@ export default class Navbar extends React.Component {
       widthEducation: widthEducation,
       widthSkills: widthSkills,
       widthPortfolio: widthPortfolio,
-      widthResume: widthResume,
       widthArticles: widthArticles,
       width3DModels: width3DModels,
-      widthContact: widthContact
+      widthContact: widthContact,
+      widthResume: widthResume
     });
 
     let widths = [
@@ -95,10 +95,11 @@ export default class Navbar extends React.Component {
       widthEducation,
       widthSkills,
       widthPortfolio,
-      widthResume,
+
       widthArticles,
       width3DModels,
-      widthContact
+      widthContact,
+      widthResume
     ];
 
     this.createJigglyAnimations(widths);
@@ -133,19 +134,19 @@ export default class Navbar extends React.Component {
             transform: "rotate(0deg) scale(1.0)"
           },
           ["25%"]: {
-            transform: "rotate(2deg) scale(1.05)"
+            transform: "rotate(2deg) scale(1.3)"
           },
           ["50%"]: {
-            transform: "rotate(0deg) scale(1.1)"
+            transform: "rotate(0deg) scale(1.0)"
           },
           ["75%"]: {
-            transform: "rotate(-2deg) scale(1.05)"
+            transform: "rotate(-2deg) scale(1.3)"
           },
           ["100%"]: {
             transform: "rotate(0deg) scale(1.0)"
           }
         },
-        animationDuration: "2s",
+        animationDuration: "1s",
         animationDelay: "0s",
         animationIterationCount: "infinite",
         animationTimingFunction: "linear"
@@ -420,7 +421,10 @@ export default class Navbar extends React.Component {
                 </g>
               ) : (
                 <g key={Math.random()}>
-                  <a href={"/" + this.state.urls[index]}>
+                  <a
+                    xlinkHref={"/" + this.state.urls[index]}
+                    href={"/" + this.state.urls[index]}
+                  >
                     <rect
                       x={this.getButtonStartX(index) + 3}
                       y="-10"
@@ -443,15 +447,16 @@ export default class Navbar extends React.Component {
                       onMouseLeave={() =>
                         this.setState({ ["inside" + value]: false })
                       }
-                      // onClick={() => {
-                      //   // console.log(this.props.history.location.pathname);
-                      //   this.props.history.push("/" + this.state.urls[index]);
-                      //   this.setState({
-                      //     pathname: "/" + this.state.urls[index]
-                      //   });
-                      //   // this.props.location = "/" + this.state.urls[index];
-                      //   // this.window.location = "/" + this.state.urls[index];
-                      // }}
+                      onClick={() => {
+                        // console.log(this.props.history.location.pathname);
+                        // this.props.history.push("/" + this.state.urls[index]);
+                        // this.setState({
+                        //   pathname: "/" + this.state.urls[index]
+                        // });
+                        // this.props.location = "/" + this.state.urls[index];
+                        // this.window.location = "/" + this.state.urls[index];
+                        // this.downloadResume();
+                      }}
                     ></rect>
                   </a>
                   ) : (<></>
