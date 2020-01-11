@@ -297,39 +297,45 @@ export default class Navbar extends React.Component {
             {this.state.buttons.map((value, index) =>
               value != "Resume" ? (
                 <g key={Math.random()}>
-                  <a href={"/" + this.state.urls[index]}>
-                    <rect
-                      x={this.getButtonStartX(index)}
-                      y="-5"
-                      width={
-                        this.state["width" + this.state.buttons[index]] +
-                        2 * this.state.buffer
-                      }
-                      height={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "50"
-                          : "45"
-                      }
-                      rx={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "5"
-                          : "0"
-                      }
-                      fill={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "dodgerblue"
-                          : this.state["inside" + value]
-                          ? "dodgerblue"
-                          : "deepskyblue"
-                      }
-                      onMouseEnter={() =>
-                        this.setState({ ["inside" + value]: true })
-                      }
-                      onMouseLeave={() =>
-                        this.setState({ ["inside" + value]: false })
-                      }
-                    ></rect>
-                  </a>
+                  {/* <a href={"/" + this.state.urls[index]}> */}
+                  <rect
+                    x={this.getButtonStartX(index)}
+                    y="-5"
+                    width={
+                      this.state["width" + this.state.buttons[index]] +
+                      2 * this.state.buffer
+                    }
+                    height={
+                      this.state.pathname === "/" + this.state.urls[index]
+                        ? "50"
+                        : "45"
+                    }
+                    rx={
+                      this.state.pathname === "/" + this.state.urls[index]
+                        ? "5"
+                        : "0"
+                    }
+                    fill={
+                      this.state.pathname === "/" + this.state.urls[index]
+                        ? "dodgerblue"
+                        : this.state["inside" + value]
+                        ? "dodgerblue"
+                        : "deepskyblue"
+                    }
+                    onMouseEnter={() =>
+                      this.setState({ ["inside" + value]: true })
+                    }
+                    onMouseLeave={() =>
+                      this.setState({ ["inside" + value]: false })
+                    }
+                    onClick={() => {
+                      // console.log(this.props.history.location.pathname);
+                      this.props.history.push("/" + this.state.urls[index]);
+                      // this.props.location = "/" + this.state.urls[index];
+                      // this.window.location = "/" + this.state.urls[index];
+                    }}
+                  ></rect>
+                  {/* </a> */}
                   {this.state["inside" + value] ? (
                     <>
                       <line
@@ -390,39 +396,38 @@ export default class Navbar extends React.Component {
                 </g>
               ) : (
                 <g key={Math.random()}>
-                  <a href={"/" + this.state.urls[index]}>
-                    <rect
-                      x={this.getButtonStartX(index) + 3}
-                      y="0"
-                      width={
-                        this.state["width" + this.state.buttons[index]] +
-                        2 * this.state.buffer -
-                        6
-                      }
-                      height={"40"}
-                      rx="10"
-                      fill={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "darkmagenta"
-                          : this.state["inside" + value]
-                          ? "darkmagenta"
-                          : "darkorchid"
-                      }
-                      onMouseEnter={() =>
-                        this.setState({ ["inside" + value]: true })
-                      }
-                      onMouseLeave={() =>
-                        this.setState({ ["inside" + value]: false })
-                      }
-                      onClick={() => {
-                        // console.log(this.props.history.location.pathname);
-                        // this.props.history.push("/" + this.state.urls[index]);
-                        // this.props.location = "/" + this.state.urls[index];
-                        // this.window.location = "/" + this.state.urls[index];
-                      }}
-                    ></rect>
-                  </a>
-                  ) : (<></>
+                  {/* <a href={"/" + this.state.urls[index]}> */}
+                  <rect
+                    x={this.getButtonStartX(index) + 3}
+                    y="-10"
+                    width={
+                      this.state["width" + this.state.buttons[index]] +
+                      2 * this.state.buffer -
+                      6
+                    }
+                    height="50"
+                    rx="10"
+                    fill={
+                      this.state.pathname === "/" + this.state.urls[index]
+                        ? "darkmagenta"
+                        : this.state["inside" + value]
+                        ? "darkmagenta"
+                        : "darkorchid"
+                    }
+                    onMouseEnter={() =>
+                      this.setState({ ["inside" + value]: true })
+                    }
+                    onMouseLeave={() =>
+                      this.setState({ ["inside" + value]: false })
+                    }
+                    onClick={() => {
+                      // console.log(this.props.history.location.pathname);
+                      this.props.history.push("/" + this.state.urls[index]);
+                      // this.props.location = "/" + this.state.urls[index];
+                      // this.window.location = "/" + this.state.urls[index];
+                    }}
+                  ></rect>
+                  {/* </a> */}) : (<></>
                   )}
                   <g>
                     <text
