@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
+// Detect the device being used
+import { isBrowser, isMobile } from "react-device-detect";
+
 export default class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -134,13 +137,13 @@ export default class Navbar extends React.Component {
             transform: "rotate(0deg) scale(1.0)"
           },
           ["25%"]: {
-            transform: "rotate(2deg) scale(1.3)"
+            transform: "rotate(1deg) scale(1.3)"
           },
           ["50%"]: {
             transform: "rotate(0deg) scale(1.0)"
           },
           ["75%"]: {
-            transform: "rotate(-2deg) scale(1.3)"
+            transform: "rotate(-1deg) scale(1.3)"
           },
           ["100%"]: {
             transform: "rotate(0deg) scale(1.0)"
@@ -177,349 +180,355 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <>
-        <div
-          id="width_bio"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Bio
-        </div>
-        <div
-          id="width_education"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Education
-        </div>
-        <div
-          id="width_experience"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Experience
-        </div>
-        <div
-          id="width_skills"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Skills
-        </div>
-        <div
-          id="width_portfolio"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Portfolio
-        </div>
-        <div
-          id="width_resume"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Resume
-        </div>
-        <div
-          id="width_articles"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Articles
-        </div>
-        <div
-          id="width_3dmodels"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          3D-Models
-        </div>
-        <div
-          id="width_contact"
-          style={{
-            position: "absolute",
-            visibility: "hidden",
-            height: "auto",
-            width: "auto",
-            whiteSpace: "nowrap",
-            fontFamily: "Arial",
-            fontWeight: "regular",
-            fontSize: "12"
-          }}
-        >
-          Contact
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <svg
-            width={this.getButtonStartX(this.state.buttons.length) - 20}
-            height="45px"
-          >
-            {this.state.buttons.map((value, index) =>
-              value != "Resume" ? (
-                <g key={Math.random()}>
-                  {/* <a href={"/" + this.state.urls[index]}> */}
-                  <rect
-                    x={this.getButtonStartX(index)}
-                    y="-5"
-                    width={
-                      this.state["width" + this.state.buttons[index]] +
-                      2 * this.state.buffer
-                    }
-                    height={
-                      this.state.pathname === "/" + this.state.urls[index]
-                        ? "50"
-                        : "45"
-                    }
-                    rx={
-                      this.state.pathname === "/" + this.state.urls[index]
-                        ? "5"
-                        : "0"
-                    }
-                    fill={
-                      this.state.pathname === "/" + this.state.urls[index]
-                        ? "dodgerblue"
-                        : this.state["inside" + value]
-                        ? "dodgerblue"
-                        : "deepskyblue"
-                    }
-                    onMouseEnter={() =>
-                      this.setState({ ["inside" + value]: true })
-                    }
-                    onMouseLeave={() =>
-                      this.setState({ ["inside" + value]: false })
-                    }
-                    onClick={() => {
-                      // console.log(this.props.history.location.pathname);
-                      this.props.history.push("/" + this.state.urls[index]);
-                      this.setState({ pathname: "/" + this.state.urls[index] });
-                      // this.props.location = "/" + this.state.urls[index];
-                      // this.window.location = "/" + this.state.urls[index];
-                    }}
-                  ></rect>
-                  {/* </a> */}
-                  {this.state["inside" + value] &&
-                  this.state.pathname != "/" + this.state.urls[index] ? (
-                    <>
-                      <line
-                        x1={this.getButtonStartX(index) + 1}
-                        y1="0"
-                        x2={this.getButtonStartX(index) + 1}
-                        y2="45"
-                        stroke="white"
-                        strokeWidth="2"
-                        pointerEvents="none"
-                      ></line>
-                      <line
-                        x1={this.getButtonStartX(index + 1) - 1}
-                        y1="0"
-                        x2={this.getButtonStartX(index + 1) - 1}
-                        y2="45"
-                        stroke="white"
-                        strokeWidth="2"
-                        pointerEvents="none"
-                      ></line>
-                    </>
+        {isBrowser && (
+          <>
+            <div
+              id="width_bio"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Bio
+            </div>
+            <div
+              id="width_education"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Education
+            </div>
+            <div
+              id="width_experience"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Experience
+            </div>
+            <div
+              id="width_skills"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Skills
+            </div>
+            <div
+              id="width_portfolio"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Portfolio
+            </div>
+            <div
+              id="width_resume"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Resume
+            </div>
+            <div
+              id="width_articles"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Articles
+            </div>
+            <div
+              id="width_3dmodels"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              3D-Models
+            </div>
+            <div
+              id="width_contact"
+              style={{
+                position: "absolute",
+                visibility: "hidden",
+                height: "auto",
+                width: "auto",
+                whiteSpace: "nowrap",
+                fontFamily: "Arial",
+                fontWeight: "regular",
+                fontSize: "14"
+              }}
+            >
+              Contact
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <svg
+                width={this.getButtonStartX(this.state.buttons.length) - 20}
+                height="45px"
+              >
+                {this.state.buttons.map((value, index) =>
+                  value != "Resume" ? (
+                    <g key={Math.random()}>
+                      {/* <a href={"/" + this.state.urls[index]}> */}
+                      <rect
+                        x={this.getButtonStartX(index)}
+                        y="-5"
+                        width={
+                          this.state["width" + this.state.buttons[index]] +
+                          2 * this.state.buffer
+                        }
+                        height={
+                          this.state.pathname === "/" + this.state.urls[index]
+                            ? "50"
+                            : "45"
+                        }
+                        rx={
+                          this.state.pathname === "/" + this.state.urls[index]
+                            ? "5"
+                            : "0"
+                        }
+                        fill={
+                          this.state.pathname === "/" + this.state.urls[index]
+                            ? "dodgerblue"
+                            : this.state["inside" + value]
+                            ? "dodgerblue"
+                            : "deepskyblue"
+                        }
+                        onMouseEnter={() =>
+                          this.setState({ ["inside" + value]: true })
+                        }
+                        onMouseLeave={() =>
+                          this.setState({ ["inside" + value]: false })
+                        }
+                        onClick={() => {
+                          // console.log(this.props.history.location.pathname);
+                          this.props.history.push("/" + this.state.urls[index]);
+                          this.setState({
+                            pathname: "/" + this.state.urls[index]
+                          });
+                          // this.props.location = "/" + this.state.urls[index];
+                          // this.window.location = "/" + this.state.urls[index];
+                        }}
+                      ></rect>
+                      {/* </a> */}
+                      {this.state["inside" + value] &&
+                      this.state.pathname != "/" + this.state.urls[index] ? (
+                        <>
+                          <line
+                            x1={this.getButtonStartX(index) + 1}
+                            y1="0"
+                            x2={this.getButtonStartX(index) + 1}
+                            y2="45"
+                            stroke="white"
+                            strokeWidth="2"
+                            pointerEvents="none"
+                          ></line>
+                          <line
+                            x1={this.getButtonStartX(index + 1) - 1}
+                            y1="0"
+                            x2={this.getButtonStartX(index + 1) - 1}
+                            y2="45"
+                            stroke="white"
+                            strokeWidth="2"
+                            pointerEvents="none"
+                          ></line>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <g
+                        key={Math.random()}
+                        className={
+                          this.state["inside" + value]
+                            ? css(this.animations["jiggly_" + index])
+                            : undefined
+                        }
+                      >
+                        <text
+                          x={
+                            this.getButtonStartX(index) +
+                            (2 * this.state.buffer +
+                              this.state["width" + this.state.buttons[index]]) /
+                              2
+                          }
+                          y="20"
+                          fontFamily="Arial"
+                          fontSize="14"
+                          fontWeight={
+                            this.state.pathname === "/" + this.state.urls[index]
+                              ? "bold"
+                              : this.state["inside" + value]
+                              ? "bold"
+                              : "regular"
+                          }
+                          textAnchor="middle"
+                          alignmentBaseline="middle"
+                          pointerEvents="none"
+                          fill="white"
+                        >
+                          {value}
+                        </text>
+                      </g>
+                    </g>
                   ) : (
-                    <></>
-                  )}
-                  <g
-                    key={Math.random()}
-                    className={
-                      this.state["inside" + value]
-                        ? css(this.animations["jiggly_" + index])
-                        : undefined
-                    }
-                  >
-                    <text
-                      x={
-                        this.getButtonStartX(index) +
-                        (2 * this.state.buffer +
-                          this.state["width" + this.state.buttons[index]]) /
-                          2
-                      }
-                      y="20"
-                      fontFamily="Arial"
-                      fontWeight={
-                        this.state.pathname === "/" + this.state.urls[index]
-                          ? "bold"
-                          : this.state["inside" + value]
-                          ? "bold"
-                          : "regular"
-                      }
-                      fontSize="12"
-                      textAnchor="middle"
-                      alignmentBaseline="middle"
-                      pointerEvents="none"
-                      fill="white"
-                    >
-                      {value}
-                    </text>
-                  </g>
-                </g>
-              ) : (
-                <g key={Math.random()}>
-                  <a
-                    xlinkHref={"/" + this.state.urls[index]}
-                    href={"/" + this.state.urls[index]}
-                  >
-                    <rect
-                      x={this.getButtonStartX(index) + 3}
-                      y="-10"
-                      width={
-                        this.state["width" + this.state.buttons[index]] +
-                        2 * this.state.buffer -
-                        6 -
-                        20
-                      }
-                      height="50"
-                      rx="10"
-                      fill={
-                        this.state["inside" + value]
-                          ? "darkmagenta"
-                          : "darkorchid"
-                      }
-                      onMouseEnter={() =>
-                        this.setState({ ["inside" + value]: true })
-                      }
-                      onMouseLeave={() =>
-                        this.setState({ ["inside" + value]: false })
-                      }
-                      onClick={() => {
-                        // console.log(this.props.history.location.pathname);
-                        // this.props.history.push("/" + this.state.urls[index]);
-                        // this.setState({
-                        //   pathname: "/" + this.state.urls[index]
-                        // });
-                        // this.props.location = "/" + this.state.urls[index];
-                        // this.window.location = "/" + this.state.urls[index];
-                        // this.downloadResume();
-                      }}
-                    ></rect>
-                  </a>
-                  ) : (<></>
-                  )}
-                  <g>
-                    <text
-                      x={
-                        this.getButtonStartX(index) +
-                        (2 * this.state.buffer +
-                          this.state["width" + this.state.buttons[index]]) /
-                          2 -
-                        10
-                      }
-                      y="10"
-                      fontFamily="Arial"
-                      fontWeight={
-                        this.state["inside" + value] ? "bold" : "regular"
-                      }
-                      fontSize="12"
-                      textAnchor="middle"
-                      alignmentBaseline="middle"
-                      pointerEvents="none"
-                      fill="white"
-                    >
-                      {value}
-                    </text>
-                  </g>
-                  <path
-                    key={Math.random()}
-                    className={
-                      this.state["inside" + value]
-                        ? css(this.animations.downloadArrow)
-                        : undefined
-                    }
-                    stroke="black"
-                    strokeWidth="0"
-                    fill="white"
-                    d={`M${this.getButtonStartX(index) +
-                      this.state.widthResume / 2 +
-                      this.state.buffer -
-                      16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
-                      this.state.widthResume / 2 +
-                      this.state.buffer -
-                      10} 32 L ${this.getButtonStartX(index) +
-                      this.state.widthResume / 2 +
-                      this.state.buffer -
-                      22} 25 h 6`}
-                    pointerEvents="none"
-                  ></path>
-                  <line
-                    x1={this.getButtonStartX(index) + 20}
-                    y1="38"
-                    x2={this.getButtonStartX(index + 1) - 40}
-                    y2="38"
-                    stroke="white"
-                    strokeWidth="2"
-                    pointerEvents="none"
-                  ></line>
-                </g>
-              )
-            )}
-          </svg>
-        </div>
+                    <g key={Math.random()}>
+                      <a
+                        xlinkHref={"/" + this.state.urls[index]}
+                        href={"/" + this.state.urls[index]}
+                      >
+                        <rect
+                          x={this.getButtonStartX(index) + 3}
+                          y="-10"
+                          width={
+                            this.state["width" + this.state.buttons[index]] +
+                            2 * this.state.buffer -
+                            6 -
+                            20
+                          }
+                          height="50"
+                          rx="10"
+                          fill={
+                            this.state["inside" + value]
+                              ? "darkmagenta"
+                              : "darkorchid"
+                          }
+                          onMouseEnter={() =>
+                            this.setState({ ["inside" + value]: true })
+                          }
+                          onMouseLeave={() =>
+                            this.setState({ ["inside" + value]: false })
+                          }
+                          onClick={() => {
+                            // console.log(this.props.history.location.pathname);
+                            // this.props.history.push("/" + this.state.urls[index]);
+                            // this.setState({
+                            //   pathname: "/" + this.state.urls[index]
+                            // });
+                            // this.props.location = "/" + this.state.urls[index];
+                            // this.window.location = "/" + this.state.urls[index];
+                            // this.downloadResume();
+                          }}
+                        ></rect>
+                      </a>
+                      ) : (<></>
+                      )}
+                      <g>
+                        <text
+                          x={
+                            this.getButtonStartX(index) +
+                            (2 * this.state.buffer +
+                              this.state["width" + this.state.buttons[index]]) /
+                              2 -
+                            10
+                          }
+                          y="10"
+                          fontFamily="Arial"
+                          fontSize="14"
+                          fontWeight={
+                            this.state["inside" + value] ? "bold" : "regular"
+                          }
+                          textAnchor="middle"
+                          alignmentBaseline="middle"
+                          pointerEvents="none"
+                          fill="white"
+                        >
+                          {value}
+                        </text>
+                      </g>
+                      <path
+                        key={Math.random()}
+                        className={
+                          this.state["inside" + value]
+                            ? css(this.animations.downloadArrow)
+                            : undefined
+                        }
+                        stroke="black"
+                        strokeWidth="0"
+                        fill="white"
+                        d={`M${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          10} 32 L ${this.getButtonStartX(index) +
+                          this.state.widthResume / 2 +
+                          this.state.buffer -
+                          22} 25 h 6`}
+                        pointerEvents="none"
+                      ></path>
+                      <line
+                        x1={this.getButtonStartX(index) + 20}
+                        y1="38"
+                        x2={this.getButtonStartX(index + 1) - 40}
+                        y2="38"
+                        stroke="white"
+                        strokeWidth="2"
+                        pointerEvents="none"
+                      ></line>
+                    </g>
+                  )
+                )}
+              </svg>
+            </div>
+          </>
+        )}
       </>
     );
   }
