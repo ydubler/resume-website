@@ -12,6 +12,7 @@ export default class Navbar extends React.Component {
         "",
         "education",
         "skills",
+        "portfolio",
         "articles",
         "3dmodels",
         "contact",
@@ -21,6 +22,7 @@ export default class Navbar extends React.Component {
         "Bio",
         "Education",
         "Skills",
+        "Portfolio",
         "Articles",
         "3DModels",
         "Contact",
@@ -29,6 +31,7 @@ export default class Navbar extends React.Component {
       widthBio: 0,
       widthEducation: 0,
       widthSkills: 0,
+      widthPortfolio: 0,
       widthResume: 0,
       widthArticles: 0,
       width3DModels: 0,
@@ -36,6 +39,7 @@ export default class Navbar extends React.Component {
       insideBio: false,
       insideEducation: false,
       insideSkills: false,
+      insidePortfolio: false,
       insideResume: false,
       insideArticles: false,
       inside3DModels: false,
@@ -57,6 +61,7 @@ export default class Navbar extends React.Component {
     let widthBio = document.getElementById("width_bio").clientWidth;
     let widthEducation = document.getElementById("width_education").clientWidth;
     let widthSkills = document.getElementById("width_skills").clientWidth;
+    let widthPortfolio = document.getElementById("width_portfolio").clientWidth;
     let widthResume = document.getElementById("width_resume").clientWidth;
     let widthArticles = document.getElementById("width_articles").clientWidth;
     let width3DModels = document.getElementById("width_3dmodels").clientWidth;
@@ -78,6 +83,7 @@ export default class Navbar extends React.Component {
       widthBio: widthBio,
       widthEducation: widthEducation,
       widthSkills: widthSkills,
+      widthPortfolio: widthPortfolio,
       widthResume: widthResume,
       widthArticles: widthArticles,
       width3DModels: width3DModels,
@@ -88,6 +94,7 @@ export default class Navbar extends React.Component {
       widthBio,
       widthEducation,
       widthSkills,
+      widthPortfolio,
       widthResume,
       widthArticles,
       width3DModels,
@@ -230,6 +237,21 @@ export default class Navbar extends React.Component {
           Skills
         </div>
         <div
+          id="width_portfolio"
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            height: "auto",
+            width: "auto",
+            whiteSpace: "nowrap",
+            fontFamily: "Arial",
+            fontWeight: "regular",
+            fontSize: "12"
+          }}
+        >
+          Portfolio
+        </div>
+        <div
           id="width_resume"
           style={{
             position: "absolute",
@@ -291,7 +313,7 @@ export default class Navbar extends React.Component {
         </div>
         <div style={{ textAlign: "center" }}>
           <svg
-            width={this.getButtonStartX(this.state.buttons.length)}
+            width={this.getButtonStartX(this.state.buttons.length) - 20}
             height="45px"
           >
             {this.state.buttons.map((value, index) =>
@@ -421,15 +443,15 @@ export default class Navbar extends React.Component {
                       onMouseLeave={() =>
                         this.setState({ ["inside" + value]: false })
                       }
-                      onClick={() => {
-                        // console.log(this.props.history.location.pathname);
-                        this.props.history.push("/" + this.state.urls[index]);
-                        this.setState({
-                          pathname: "/" + this.state.urls[index]
-                        });
-                        // this.props.location = "/" + this.state.urls[index];
-                        // this.window.location = "/" + this.state.urls[index];
-                      }}
+                      // onClick={() => {
+                      //   // console.log(this.props.history.location.pathname);
+                      //   this.props.history.push("/" + this.state.urls[index]);
+                      //   this.setState({
+                      //     pathname: "/" + this.state.urls[index]
+                      //   });
+                      //   // this.props.location = "/" + this.state.urls[index];
+                      //   // this.window.location = "/" + this.state.urls[index];
+                      // }}
                     ></rect>
                   </a>
                   ) : (<></>
