@@ -49,12 +49,14 @@ export default class Articles extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            <a
-              style={{ textDecoration: "none" }}
-              href="/articles/insertion-sort"
+            <div
+              style={{ color: "purple", cursor: "pointer" }}
+              onClick={() => {
+                this.props.history.push("/articles/insertion-sort");
+              }}
             >
               Insertion Sort
-            </a>
+            </div>
           </div>
           <div
             style={{
