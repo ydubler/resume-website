@@ -421,7 +421,7 @@ export default class Navbar extends React.Component {
           </>
         )}
         {/* MOBILE BROWSERS */}
-        {isMobile && (
+        {isBrowser && (
           <>
             {this.state.buttons.map((value, index) => (
               <div
@@ -442,7 +442,7 @@ export default class Navbar extends React.Component {
               </div>
             ))}
             <div style={{ display: "inline" }}>
-              <svg width="100%" height="320" x="0" y="0">
+              <svg width="100%" height={40 * this.state.buttons.length}>
                 {this.state.buttons.map((value, index) =>
                   value != "Resume" ? (
                     <g key={Math.random()}>

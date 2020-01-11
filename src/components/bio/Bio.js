@@ -21,7 +21,7 @@ export default class Bio extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ display: "inline" }}>
         <SVGFirstLastName windowInnerWidth={this.state.windowInnerWidth} />
         <br />
         <div style={{ textAlign: "center" }}>
