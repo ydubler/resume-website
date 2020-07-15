@@ -180,12 +180,12 @@ server.get("/resume", (req, res) => {
 
   //GOOD;
   var file = fs.createReadStream(__dirname + "/public/Yuri_Dubler_resume.pdf");
-  var stat = fs.statSync(__dirname + "/public/Yuri_Dubler_resume.pdf.pdf");
+  var stat = fs.statSync(__dirname + "/public/Yuri_Dubler_resume.pdf");
   res.setHeader("Content-Length", stat.size);
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader(
     "Content-Disposition",
-    "attachment; filename=Yuri_Dubler_Resume.pdf"
+    "attachment; filename=Resume-Yuri-Dubler.pdf"
   );
   file.pipe(res);
 
