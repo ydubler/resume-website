@@ -15,11 +15,16 @@ module.exports = {
         use: "babel-loader",
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.jsx?$/,
+        loader: "babel-loader",
       },
       {
-        test: /\.(png|jpg|gif)$/i,
+        test: /\.css$/,
+        exclude: "/node_modules/",
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
         use: [
           {
             loader: "url-loader",
@@ -30,7 +35,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif)$/i,
         use: [
           {
             loader: "file-loader",
@@ -38,5 +43,8 @@ module.exports = {
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".css"],
   },
 };
