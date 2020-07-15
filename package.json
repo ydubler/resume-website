@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./compiled/server/server.js",
-    "build": "babel src --out-dir compiled/ && webpack",
+    "build": "babel src --out-dir compiled/ && webpack && mkdir ~/compiled/server/public/ && mv ~/src/server/public/Resume-Yuri-Dubler.pdf ~/compiled/server/public/Resume-Yuri-Dubler.pdf",
     "dev-server": "ENVVAR=69 nodemon --exec babel-node src/server/server.js --delay 500ms --ignore dist/",
     "dev-bundle": "webpack -wd",
     "buildRun": "babel src --out-dir compiled/  && webpack && node ./compiled/server/server.js"
