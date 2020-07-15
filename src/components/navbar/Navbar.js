@@ -246,9 +246,13 @@ export default class Navbar extends React.Component {
                         }
                         fill={
                           this.state.pathname === "/" + this.state.urls[index]
-                            ? "dodgerblue"
+                            ? value === "Portfolio"
+                              ? "orangered"
+                              : "dodgerblue"
                             : this.state["inside" + value]
-                            ? "dodgerblue"
+                            ? value === "Portfolio"
+                              ? "orange"
+                              : "dodgerblue"
                             : "deepskyblue"
                         }
                         onMouseEnter={() =>
