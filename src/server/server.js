@@ -179,8 +179,8 @@ server.get("/resume", (req, res) => {
   // `);
 
   //GOOD;
-  var file = fs.createReadStream(__dirname + "/public/Yuri_Dubler_resume.pdf");
-  var stat = fs.statSync(__dirname + "/public/Yuri_Dubler_resume.pdf");
+  var file = fs.createReadStream(__dirname + "/public/Resume-Yuri-Dubler.pdf");
+  var stat = fs.statSync(__dirname + "/public/Resume-Yuri-Dubler.pdf");
   res.setHeader("Content-Length", stat.size);
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader(
