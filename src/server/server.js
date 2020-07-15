@@ -23,6 +23,9 @@ import { StyleSheetServer } from "aphrodite";
 import InsertionSort from "../components/articles/Articles/InsertionSort/InsertionSort";
 import { Stream } from "stream";
 
+// PDF File
+import file_resume from "./public/Resume-Yuri-Dubler.pdf";
+
 // Get the port
 const PORT = process.env.PORT || 3000;
 
