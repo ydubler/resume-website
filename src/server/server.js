@@ -179,11 +179,14 @@ server.get("/resume", (req, res) => {
   // `);
 
   //GOOD;
-  var file = fs.createReadStream(__dirname + "/public/testResume.pdf");
-  var stat = fs.statSync(__dirname + "/public/testResume.pdf");
+  var file = fs.createReadStream(__dirname + "/public/Yuri_Dubler_resume.pdf");
+  var stat = fs.statSync(__dirname + "/public/Yuri_Dubler_resume.pdf.pdf");
   res.setHeader("Content-Length", stat.size);
   res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", "attachment; filename=testResume.pdf");
+  res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=Yuri_Dubler_Resume.pdf"
+  );
   file.pipe(res);
 
   // BAD

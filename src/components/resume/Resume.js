@@ -5,7 +5,7 @@ export default class Resume extends React.Component {
     super(props);
 
     this.state = {
-      location: ""
+      location: "",
     };
   }
 
