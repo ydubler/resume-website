@@ -259,10 +259,20 @@ export default class Navbar extends React.Component {
                         }
                         onClick={() => {
                           // console.log(this.props.history.location.pathname);
-                          this.props.history.push("/" + this.state.urls[index]);
-                          this.setState({
-                            pathname: "/" + this.state.urls[index],
-                          });
+                          if (this.value === "portfolio") {
+                            window.open(
+                              "https://yuri-dubler-portfolio.herokuapp.com",
+                              "_blank"
+                            );
+                          } else {
+                            this.props.history.push(
+                              "/" + this.state.urls[index]
+                            );
+                            this.setState({
+                              pathname: "/" + this.state.urls[index],
+                            });
+                          }
+
                           // this.props.location = "/" + this.state.urls[index];
                           // this.window.location = "/" + this.state.urls[index];
                         }}
@@ -372,8 +382,7 @@ export default class Navbar extends React.Component {
                           }}
                         ></rect>
                       </a>
-                      ) : (<></>
-                      )}
+                      ) : (<></>)
                       <g>
                         <text
                           x={
@@ -552,8 +561,7 @@ export default class Navbar extends React.Component {
                           }}
                         ></rect>
                       </a>
-                      ) : (<></>
-                      )}
+                      ) : (<></>)
                       <g>
                         <text
                           x="50%"
