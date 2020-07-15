@@ -26,7 +26,7 @@ export default class Navbar extends React.Component {
         "Bio",
         "Education",
         "Skills",
-        "Portfolio",
+        "PORTFOLIO",
         "Articles",
         "3DModels",
         "Contact",
@@ -249,10 +249,10 @@ export default class Navbar extends React.Component {
                             ? "dodgerblue"
                             : this.state["inside" + value]
                             ? value === "Portfolio"
-                              ? "orange"
+                              ? "orangered"
                               : "dodgerblue"
                             : value === "Portfolio"
-                            ? "orangered"
+                            ? "orange"
                             : "deepskyblue"
                         }
                         onMouseEnter={() =>
