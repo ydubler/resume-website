@@ -259,7 +259,7 @@ export default class Navbar extends React.Component {
                         }
                         onClick={() => {
                           // console.log(this.props.history.location.pathname);
-                          if (this.value === "Portfolio") {
+                          if (value === "Portfolio") {
                             window.open(
                               "https://yuri-dubler-portfolio.herokuapp.com",
                               "_blank"
