@@ -248,10 +248,10 @@ export default class Navbar extends React.Component {
                           this.state.pathname === "/" + this.state.urls[index]
                             ? "dodgerblue"
                             : this.state["inside" + value]
-                            ? value === "Portfolio"
+                            ? value === "PORTFOLIO"
                               ? "orangered"
                               : "dodgerblue"
-                            : value === "Portfolio"
+                            : value === "PORTFOLIO"
                             ? "orange"
                             : "deepskyblue"
                         }
@@ -263,7 +263,7 @@ export default class Navbar extends React.Component {
                         }
                         onClick={() => {
                           // console.log(this.props.history.location.pathname);
-                          if (value === "Portfolio") {
+                          if (value === "PORTFOLIO") {
                             window.open(
                               "https://yuri-dubler-portfolio.herokuapp.com",
                               "_blank"
