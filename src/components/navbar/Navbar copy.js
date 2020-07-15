@@ -20,7 +20,7 @@ export default class Navbar extends React.Component {
         "articles",
         "3dmodels",
         "contact",
-        "resume",
+        "resume"
       ],
       buttons: [
         "Bio",
@@ -30,7 +30,7 @@ export default class Navbar extends React.Component {
         "Articles",
         "3DModels",
         "Contact",
-        "Resume",
+        "Resume"
       ],
       widthBio: 0,
       widthEducation: 0,
@@ -47,7 +47,7 @@ export default class Navbar extends React.Component {
       insideResume: false,
       insideArticles: false,
       inside3DModels: false,
-      insideContact: false,
+      insideContact: false
     };
 
     this.animations = StyleSheet.create({});
@@ -81,7 +81,7 @@ export default class Navbar extends React.Component {
       widthArticles,
       width3DModels,
       widthContact,
-      widthResume,
+      widthResume
     ];
 
     // Create jiggly animations
@@ -110,7 +110,7 @@ export default class Navbar extends React.Component {
       widthArticles: widthArticles,
       width3DModels: width3DModels,
       widthContact: widthContact,
-      widthResume: widthResume,
+      widthResume: widthResume
     });
   }
 
@@ -136,58 +136,48 @@ export default class Navbar extends React.Component {
       }
 
       animations["jiggly_" + i] = {
-        transform: "scale(1.3)",
-        transformOrigin: `${
-          startX + (2 * this.state.buffer + widthsIn[i]) / 2
-        }px 20px`,
-        // animationName: {
-        //   ["0%"]: {
-        //     transform: "rotate(0deg) scale(1.0)"
-        //   },
-        //   ["25%"]: {
-        //     transform: "rotate(1deg) scale(1.3)"
-        //   },
-        //   ["50%"]: {
-        //     transform: "rotate(0deg) scale(1.0)"
-        //   },
-        //   ["75%"]: {
-        //     transform: "rotate(-1deg) scale(1.3)"
-        //   },
-        //   ["100%"]: {
-        //     transform: "rotate(0deg) scale(1.0)"
-        //   }
-        // },
+        transformOrigin: `${startX +
+          (2 * this.state.buffer + widthsIn[i]) / 2}px 20px`,
         animationName: {
           ["0%"]: {
-            transform: "scale(1.0)",
+            transform: "rotate(0deg) scale(1.0)"
+          },
+          ["25%"]: {
+            transform: "rotate(1deg) scale(1.3)"
+          },
+          ["50%"]: {
+            transform: "rotate(0deg) scale(1.0)"
+          },
+          ["75%"]: {
+            transform: "rotate(-1deg) scale(1.3)"
           },
           ["100%"]: {
-            transform: "scale(1.3)",
-          },
+            transform: "rotate(0deg) scale(1.0)"
+          }
         },
-        animationDuration: "0.3s",
+        animationDuration: "1s",
         animationDelay: "0s",
-        animationIterationCount: "once",
-        animationTimingFunction: "linear",
+        animationIterationCount: "infinite",
+        animationTimingFunction: "linear"
       };
     }
 
     animations["downloadArrow"] = {
       animationName: {
         ["0%"]: {
-          transform: "translate(0px, 0px)",
+          transform: "translate(0px, 0px)"
         },
         ["50%"]: {
-          transform: "translate(0px, 5px)",
+          transform: "translate(0px, 5px)"
         },
         ["100%"]: {
-          transform: "translate(0px, 0px)",
-        },
+          transform: "translate(0px, 0px)"
+        }
       },
       animationDuration: "1s",
       animationDelay: "0s",
       animationIterationCount: "infinite",
-      animationTimingFunction: "linear",
+      animationTimingFunction: "linear"
     };
 
     this.animations = StyleSheet.create(animations);
@@ -211,7 +201,7 @@ export default class Navbar extends React.Component {
                   whiteSpace: "nowrap",
                   fontFamily: "Arial",
                   fontWeight: "regular",
-                  fontSize: "14",
+                  fontSize: "14"
                 }}
               >
                 {value}
@@ -261,7 +251,7 @@ export default class Navbar extends React.Component {
                           // console.log(this.props.history.location.pathname);
                           this.props.history.push("/" + this.state.urls[index]);
                           this.setState({
-                            pathname: "/" + this.state.urls[index],
+                            pathname: "/" + this.state.urls[index]
                           });
                           // this.props.location = "/" + this.state.urls[index];
                           // this.window.location = "/" + this.state.urls[index];
@@ -296,8 +286,7 @@ export default class Navbar extends React.Component {
                       <g
                         key={Math.random()}
                         className={
-                          this.state["inside" + value] &&
-                          this.state.pathname != "/" + this.state.urls[index]
+                          this.state["inside" + value]
                             ? css(this.animations["jiggly_" + index])
                             : undefined
                         }
@@ -311,11 +300,7 @@ export default class Navbar extends React.Component {
                           }
                           y="20"
                           fontFamily="Arial"
-                          fontSize={
-                            this.state.pathname === "/" + this.state.urls[index]
-                              ? "18.2"
-                              : "14"
-                          }
+                          fontSize="14"
                           fontWeight={
                             this.state.pathname === "/" + this.state.urls[index]
                               ? "bold"
@@ -407,22 +392,16 @@ export default class Navbar extends React.Component {
                         stroke="black"
                         strokeWidth="0"
                         fill="white"
-                        d={`M${
-                          this.getButtonStartX(index) +
+                        d={`M${this.getButtonStartX(index) +
                           this.state.widthResume / 2 +
                           this.state.buffer -
-                          16
-                        } 17 h 12 v 8 h 6 L ${
-                          this.getButtonStartX(index) +
+                          16} 17 h 12 v 8 h 6 L ${this.getButtonStartX(index) +
                           this.state.widthResume / 2 +
                           this.state.buffer -
-                          10
-                        } 32 L ${
-                          this.getButtonStartX(index) +
+                          10} 32 L ${this.getButtonStartX(index) +
                           this.state.widthResume / 2 +
                           this.state.buffer -
-                          22
-                        } 25 h 6`}
+                          22} 25 h 6`}
                         pointerEvents="none"
                       ></path>
                       <line
@@ -456,7 +435,7 @@ export default class Navbar extends React.Component {
                   whiteSpace: "nowrap",
                   fontFamily: "Arial",
                   fontWeight: "regular",
-                  fontSize: "14",
+                  fontSize: "14"
                 }}
               >
                 {value}
@@ -487,7 +466,7 @@ export default class Navbar extends React.Component {
                           // console.log(this.props.history.location.pathname);
                           this.props.history.push("/" + this.state.urls[index]);
                           this.setState({
-                            pathname: "/" + this.state.urls[index],
+                            pathname: "/" + this.state.urls[index]
                           });
                           // this.props.location = "/" + this.state.urls[index];
                           // this.window.location = "/" + this.state.urls[index];

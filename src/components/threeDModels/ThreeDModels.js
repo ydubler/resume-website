@@ -49,12 +49,12 @@ export default class ThreeDModels extends React.Component {
               backgroundColor: "aliceblue"
             }}
           >
-            <a
+            {/* <a
               style={{ textDecoration: "none" }}
               href="/articles/insertion-sort"
-            >
-              Lizardman
-            </a>
+            > */}
+            Lizardman (not yet viewable)
+            {/* </a> */}
           </div>
           <div
             style={{

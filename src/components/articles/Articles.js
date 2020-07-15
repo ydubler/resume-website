@@ -5,7 +5,7 @@ export default class Articles extends React.Component {
     super(props);
 
     this.state = {
-      location: ""
+      location: "",
     };
   }
 
@@ -24,7 +24,7 @@ export default class Articles extends React.Component {
             style={{
               display: "inline-block",
               width: "500px",
-              textAlign: "left"
+              textAlign: "left",
             }}
           >
             <u>Article Name</u>
@@ -33,7 +33,7 @@ export default class Articles extends React.Component {
             style={{
               display: "inline-block",
               width: "150px",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <u>Published</u>
@@ -46,7 +46,9 @@ export default class Articles extends React.Component {
               display: "inline-block",
               width: "500px",
               textAlign: "left",
-              backgroundColor: "aliceblue"
+              backgroundColor: "Aquamarine",
+              // border: "solid",
+              // borderColor: "MediumSpringGreen"
             }}
           >
             <div
@@ -54,7 +56,7 @@ export default class Articles extends React.Component {
                 display: "inline-block",
                 width: "auto",
                 color: "purple",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={() => {
                 this.props.history.push("/articles/insertion-sort");
@@ -68,164 +70,15 @@ export default class Articles extends React.Component {
               display: "inline-block",
               width: "150px",
               textAlign: "right",
-              backgroundColor: "aliceblue"
+              backgroundColor: "Aquamarine",
+              // border: "solid",
+              // borderColor: "MediumSpringGreen"
             }}
           >
             1/7/2020
           </div>
           <br />
           <br />
-          {/* Recursion */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a
-              style={{ textDecoration: "none" }}
-              href="/articles/insertion-sort"
-            >
-              Recursion
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            Under Construction
-          </div>
-          <br />
-          <br />
-          {/*Minimum Spanning Trees */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a style={{ textDecoration: "none" }} href="">
-              Binary Search
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            ?
-          </div>
-          <br />
-          <br />
-          {/* Binary Search */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a style={{ textDecoration: "none" }} href="">
-              Minimum Spanning Trees
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            ?
-          </div>
-          <br />
-          <br />
-          {/* Suffix Trees */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a style={{ textDecoration: "none" }} href="">
-              Suffix Trees
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            ?
-          </div>
-          <br />
-          <br />
-          {/* Convolution / FFT */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a style={{ textDecoration: "none" }} href="">
-              Convolution / FFT
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            ?
-          </div>
-          <br />
-          <br />
-          {/* Kernels / Image Processing */}
-          <div
-            style={{
-              display: "inline-block",
-              width: "500px",
-              textAlign: "left",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            <a style={{ textDecoration: "none" }} href="">
-              Kernels / Image Processing
-            </a>
-          </div>
-          <div
-            style={{
-              display: "inline-block",
-              width: "150px",
-              textAlign: "right",
-              backgroundColor: "aliceblue"
-            }}
-          >
-            ?
-          </div>
         </div>
       </>
     );
