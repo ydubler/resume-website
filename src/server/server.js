@@ -153,6 +153,13 @@ server.get("/education", (req, res) => {
   `);
 });
 
+// Getting "/education"
+server.get("/portfolio", (req, res) => {
+  console.log("get request to /portfolio");
+
+  res.redirect("https://yuri-dubler-portfolio.herokuapp.com");
+});
+
 // Getting "/resume"
 server.get("/resume", (req, res) => {
   console.log("get request to /resume");
